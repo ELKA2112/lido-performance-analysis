@@ -1,10 +1,11 @@
 # Lido Performance Analysis
 
-Comprehensive analysis tool for comparing Kiln's performance against other Lido node operators.
+Comprehensive analysis tool for comparing any Lido node operator's performance against other operators.
 
 ## Features
 
-- **Accurate Balance Tracking**: Uses Kiln API's `/eth/stakes` endpoint to track validator activations and exits for precise active balance calculations
+- **Configurable Reference Operator**: Easily change which operator to analyze by setting `REFERENCE_OPERATOR` in the CONFIG
+- **Accurate Balance Tracking**: Uses the Kiln API service's `/eth/stakes` endpoint to track validator activations and exits for precise active balance calculations
 - **Comprehensive Metrics**: APR comparisons, rankings, percentiles, z-scores, and extra rewards vs multiple benchmarks
 - **Statistical Analysis**: Includes outlier detection and removal using standard deviations
 - **Checkpointing**: Resume capability for long-running data fetching jobs
@@ -16,8 +17,8 @@ Comprehensive analysis tool for comparing Kiln's performance against other Lido 
 ### Prerequisites
 
 - Python 3.8 or higher
-- Kiln API key
-- TheGraph API key
+- Kiln API key (from [Kiln API service](https://api.kiln.fi) - used to fetch validator rewards data)
+- TheGraph API key (for querying Lido subgraph data)
 
 ### Setup
 
@@ -90,21 +91,29 @@ The script generates the following files in `output/`:
 - `lido_processing.log` - Execution logs
 
 ### Analysis Results
-- `kiln_analysis_2023_onwards.csv` - Full analysis with all data
-- `kiln_analysis_2023_onwards_no_outliers.csv` - Analysis with outliers removed
+- `{operator}_analysis.csv` - Full analysis with all data (e.g., `kiln_analysis.csv`)
+- `{operator}_analysis_no_outliers.csv` - Analysis with outliers removed
 
 ### Visualizations
-- `kiln_performance_dashboard_2023_onwards.png` - 10-plot dashboard (all data)
-- `kiln_performance_dashboard_2023_onwards_no_outliers.png` - Dashboard (no outliers)
-- `operator_rankings_heatmap_2023_onwards.png` - All operators heatmap (all data)
-- `operator_rankings_heatmap_2023_onwards_no_outliers.png` - Heatmap (no outliers)
+- `{operator}_performance_dashboard.png` - 10-plot dashboard (all data)
+- `{operator}_performance_dashboard_no_outliers.png` - Dashboard (no outliers)
+- `operator_rankings_heatmap.png` - All operators heatmap (all data)
+- `operator_rankings_heatmap_no_outliers.png` - Heatmap (no outliers)
+
+**Note**: `{operator}` is replaced with the lowercase, underscore-separated name of your reference operator (e.g., `kiln`, `chorus_one`, `p2p.org`).
 
 ## Configuration
+
+The script is fully parametric - you can analyze any Lido node operator by simply changing the `REFERENCE_OPERATOR` setting.
 
 Edit the `CONFIG` dictionary in `scripts/lido_perf_analysis.py`:
 
 ```python
 CONFIG = {
+    # Reference operator - The operator to analyze
+    # Must match the operator name exactly as it appears in the Lido subgraph
+    'REFERENCE_OPERATOR': 'Kiln',
+
     # Date range for analysis
     'START_DATE': '2023-01-01',
     'END_DATE': '2025-08-31',
@@ -121,6 +130,18 @@ CONFIG = {
     'MAX_RETRIES': 10,
 }
 ```
+
+### Analyzing Different Operators
+
+To analyze a different operator, simply change the `REFERENCE_OPERATOR` value to match the operator name exactly as it appears in the Lido subgraph:
+
+**Examples:**
+- `'REFERENCE_OPERATOR': 'Kiln'` → Generates `kiln_analysis.csv`, `kiln_performance_dashboard.png`
+- `'REFERENCE_OPERATOR': 'Figment'` → Generates `figment_analysis.csv`, `figment_performance_dashboard.png`
+- `'REFERENCE_OPERATOR': 'Chorus One'` → Generates `chorus_one_analysis.csv`, `chorus_one_performance_dashboard.png`
+- `'REFERENCE_OPERATOR': 'P2P.org'` → Generates `p2p.org_analysis.csv`, `p2p.org_performance_dashboard.png`
+
+All plots, CSV files, and analysis will automatically reference your chosen operator. The operator name must match exactly as it appears in the Lido protocol.
 
 ## Analysis Methodology
 
@@ -141,9 +162,9 @@ Monthly APR = (Total Monthly Rewards / Average Daily Balance) × (365 / Days in 
 
 ### Benchmarks
 
-Kiln's performance is compared against:
-- **Network Mean**: Stake-weighted average APR (excluding Kiln)
-- **Network Median**: Median APR across all operators
+The reference operator's performance is compared against:
+- **Network Mean**: Stake-weighted average APR (excluding the reference operator)
+- **Network Median**: Median APR across all operators (excluding the reference operator)
 - **Top 10 Mean**: Average APR of top 10 performing operators
 - **Top 10 Median**: Median APR of top 10 performing operators
 
@@ -154,8 +175,8 @@ The no-outlier analysis removes daily rewards that are more than 2 standard devi
 ## Metrics Explained
 
 - **APR**: Annualized percentage return based on monthly rewards
-- **Rank**: Kiln's ranking among all operators (1 = best)
-- **Percentile**: Kiln's percentile ranking (100 = top 1%)
+- **Rank**: The reference operator's ranking among all operators (1 = best)
+- **Percentile**: Percentile ranking (100 = top 1%)
 - **Z-Score**: Standard deviations above/below mean (>1 = good, >2 = excellent)
 - **Diff vs Benchmark (bps)**: APR difference in basis points (100 bps = 1%)
 - **Extra Rewards**: Additional ETH earned vs benchmark APR

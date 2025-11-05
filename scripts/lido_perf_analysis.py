@@ -1140,20 +1140,23 @@ def analyse_operator_performance_no_outliers():
 # VISUALIZATION FUNCTIONS
 # ============================================================================
 
-def plot_kiln_performance_analysis(df, title_suffix="", save_path=None):
+def plot_operator_performance_analysis(df, title_suffix="", save_path=None):
     """
-    Create visualizations for Kiln performance analysis.
+    Create visualizations for operator performance analysis.
 
     Args:
-        df: DataFrame from analyse_kiln_perf_vs_others() functions
+        df: DataFrame from analyse_operator_performance() functions
         title_suffix: Optional suffix to add to plot titles
-        save_path: Optional path to save the figure (e.g., 'kiln_analysis.png')
+        save_path: Optional path to save the figure (e.g., 'operator_analysis.png')
 
     Returns:
         matplotlib figure object
     """
     import matplotlib.pyplot as plt
     import matplotlib.dates as mdates
+
+    # Get the reference operator name from the dataframe columns
+    ref_operator = CONFIG['REFERENCE_OPERATOR']
 
     # Convert Month to datetime for better plotting
     df = df.copy()
@@ -1165,12 +1168,12 @@ def plot_kiln_performance_analysis(df, title_suffix="", save_path=None):
 
     # 1. APR Comparison Over Time (large plot, top)
     ax1 = fig.add_subplot(gs[0, :])
-    ax1.plot(df['Date'], df['Kiln APR (%)'], marker='o', linewidth=2, label='Kiln', color='#2E86AB', markersize=6)
+    ax1.plot(df['Date'], df[f'{ref_operator} APR (%)'], marker='o', linewidth=2, label=ref_operator, color='#2E86AB', markersize=6)
     ax1.plot(df['Date'], df['Network Mean APR (%)'], marker='s', linewidth=1.5, label='Network Mean', color='#A23B72', linestyle='--', markersize=4)
     ax1.plot(df['Date'], df['Network Median APR (%)'], marker='^', linewidth=1.5, label='Network Median', color='#F18F01', linestyle='--', markersize=4)
     ax1.set_xlabel('Date', fontsize=12, fontweight='bold')
     ax1.set_ylabel('APR (%)', fontsize=12, fontweight='bold')
-    ax1.set_title(f'Kiln APR vs Network Benchmarks Over Time{title_suffix}', fontsize=14, fontweight='bold')
+    ax1.set_title(f'{ref_operator} APR vs Network Benchmarks Over Time{title_suffix}', fontsize=14, fontweight='bold')
     ax1.legend(loc='best', fontsize=10)
     ax1.grid(True, alpha=0.3)
     ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
@@ -1179,11 +1182,11 @@ def plot_kiln_performance_analysis(df, title_suffix="", save_path=None):
 
     # 2. Ranking Over Time
     ax2 = fig.add_subplot(gs[1, 0])
-    ax2.plot(df['Date'], df['Kiln Rank'], marker='o', linewidth=2, color='#2E86AB', markersize=6)
+    ax2.plot(df['Date'], df[f'{ref_operator} Rank'], marker='o', linewidth=2, color='#2E86AB', markersize=6)
     ax2.invert_yaxis()
     ax2.set_xlabel('Date', fontsize=10, fontweight='bold')
     ax2.set_ylabel('Rank (lower is better)', fontsize=10, fontweight='bold')
-    ax2.set_title('Kiln Ranking Over Time', fontsize=12, fontweight='bold')
+    ax2.set_title(f'{ref_operator} Ranking Over Time', fontsize=12, fontweight='bold')
     ax2.grid(True, alpha=0.3)
     ax2.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
     plt.setp(ax2.xaxis.get_majorticklabels(), rotation=45, ha='right')
@@ -1196,7 +1199,7 @@ def plot_kiln_performance_analysis(df, title_suffix="", save_path=None):
     ax3.axhline(y=90, color='red', linestyle='--', alpha=0.5, label='90th Percentile')
     ax3.set_xlabel('Date', fontsize=10, fontweight='bold')
     ax3.set_ylabel('Percentile', fontsize=10, fontweight='bold')
-    ax3.set_title('Kiln Percentile Ranking', fontsize=12, fontweight='bold')
+    ax3.set_title(f'{ref_operator} Percentile Ranking', fontsize=12, fontweight='bold')
     ax3.set_ylim(0, 100)
     ax3.legend(fontsize=8)
     ax3.grid(True, alpha=0.3)
@@ -1297,7 +1300,7 @@ def plot_kiln_performance_analysis(df, title_suffix="", save_path=None):
     ax10.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
     plt.setp(ax10.xaxis.get_majorticklabels(), rotation=45, ha='right')
 
-    plt.suptitle(f'Kiln Performance Analysis Dashboard{title_suffix}',
+    plt.suptitle(f'{ref_operator} Performance Analysis Dashboard{title_suffix}',
                  fontsize=16, fontweight='bold', y=0.998)
 
     if save_path:
@@ -1367,16 +1370,17 @@ def plot_operator_rankings_heatmap(monthly_operator_rankings, save_path=None):
                 linewidths=0.5, linecolor='gray', ax=ax,
                 vmin=1, vmax=num_operators)
 
-    # Highlight Kiln row if present
-    if 'Kiln' in sorted_operators:
-        kiln_idx = sorted_operators.index('Kiln')
-        ax.add_patch(plt.Rectangle((0, kiln_idx), len(months), 1,
+    # Highlight reference operator row if present
+    ref_operator = CONFIG['REFERENCE_OPERATOR']
+    if ref_operator in sorted_operators:
+        ref_idx = sorted_operators.index(ref_operator)
+        ax.add_patch(plt.Rectangle((0, ref_idx), len(months), 1,
                                    fill=False, edgecolor='blue', linewidth=3))
 
     ax.set_title(f'All Operator Rankings Over Time ({num_operators} operators, ordered by avg rank)',
                 fontsize=14, fontweight='bold', pad=20)
     ax.set_xlabel('Month', fontsize=12, fontweight='bold')
-    ax.set_ylabel('Operator (Kiln highlighted in blue)', fontsize=12, fontweight='bold')
+    ax.set_ylabel(f'Operator ({ref_operator} highlighted in blue)', fontsize=12, fontweight='bold')
     plt.setp(ax.xaxis.get_majorticklabels(), rotation=45, ha='right')
 
     plt.tight_layout()
@@ -1447,30 +1451,31 @@ def main():
 
     # Step 2: Run analysis with all data
     log_message("\n" + "="*80)
-    log_message("STEP 3: RUNNING ANALYSIS (2023+ WITH ALL DATA)")
+    log_message("STEP 3: RUNNING ANALYSIS (WITH ALL DATA)")
     log_message("="*80)
 
-    analysis_results = analyse_kiln_perf_vs_others_2023_onwards()
+    analysis_results = analyse_operator_performance()
 
-    # Save analysis results
-    analysis_csv_path = os.path.join(OUTPUT_DIR, 'kiln_analysis_2023_onwards.csv')
+    # Save analysis results with dynamic filename
+    ref_operator_clean = CONFIG['REFERENCE_OPERATOR'].lower().replace(' ', '_')
+    analysis_csv_path = os.path.join(OUTPUT_DIR, f'{ref_operator_clean}_analysis.csv')
     analysis_results['monthly_dataframe'].to_csv(analysis_csv_path, index=False)
     log_message(f"Analysis DataFrame saved to: {analysis_csv_path}")
 
     # Print summary
-    log_message("\nSummary (2023+ with all data):")
+    log_message(f"\nSummary for {CONFIG['REFERENCE_OPERATOR']} (with all data):")
     for key, value in analysis_results['summary'].items():
         log_message(f"  {key}: {value}")
 
     # Generate plots
-    plot_path = os.path.join(OUTPUT_DIR, 'kiln_performance_dashboard_2023_onwards.png')
-    plot_kiln_performance_analysis(
+    plot_path = os.path.join(OUTPUT_DIR, f'{ref_operator_clean}_performance_dashboard.png')
+    plot_operator_performance_analysis(
         analysis_results['monthly_dataframe'],
-        title_suffix=" (2023+)",
+        title_suffix="",
         save_path=plot_path
     )
 
-    heatmap_path = os.path.join(OUTPUT_DIR, 'operator_rankings_heatmap_2023_onwards.png')
+    heatmap_path = os.path.join(OUTPUT_DIR, f'operator_rankings_heatmap.png')
     plot_operator_rankings_heatmap(
         analysis_results['monthly_operator_rankings'],
         save_path=heatmap_path
@@ -1478,30 +1483,30 @@ def main():
 
     # Step 3: Run analysis without outliers
     log_message("\n" + "="*80)
-    log_message("STEP 4: RUNNING ANALYSIS (2023+ NO OUTLIERS)")
+    log_message("STEP 4: RUNNING ANALYSIS (NO OUTLIERS)")
     log_message("="*80)
 
-    analysis_no_outliers = analyse_kiln_perf_vs_others_2023_onwards_no_outliers()
+    analysis_no_outliers = analyse_operator_performance_no_outliers()
 
     # Save analysis results
-    analysis_no_outliers_csv_path = os.path.join(OUTPUT_DIR, 'kiln_analysis_2023_onwards_no_outliers.csv')
+    analysis_no_outliers_csv_path = os.path.join(OUTPUT_DIR, f'{ref_operator_clean}_analysis_no_outliers.csv')
     analysis_no_outliers['monthly_dataframe'].to_csv(analysis_no_outliers_csv_path, index=False)
     log_message(f"Analysis DataFrame (no outliers) saved to: {analysis_no_outliers_csv_path}")
 
     # Print summary
-    log_message("\nSummary (2023+ without outliers):")
+    log_message(f"\nSummary for {CONFIG['REFERENCE_OPERATOR']} (without outliers):")
     for key, value in analysis_no_outliers['summary'].items():
         log_message(f"  {key}: {value}")
 
     # Generate plots
-    plot_no_outliers_path = os.path.join(OUTPUT_DIR, 'kiln_performance_dashboard_2023_onwards_no_outliers.png')
-    plot_kiln_performance_analysis(
+    plot_no_outliers_path = os.path.join(OUTPUT_DIR, f'{ref_operator_clean}_performance_dashboard_no_outliers.png')
+    plot_operator_performance_analysis(
         analysis_no_outliers['monthly_dataframe'],
-        title_suffix=" (2023+ No Outliers)",
+        title_suffix=" (No Outliers)",
         save_path=plot_no_outliers_path
     )
 
-    heatmap_no_outliers_path = os.path.join(OUTPUT_DIR, 'operator_rankings_heatmap_2023_onwards_no_outliers.png')
+    heatmap_no_outliers_path = os.path.join(OUTPUT_DIR, f'operator_rankings_heatmap_no_outliers.png')
     plot_operator_rankings_heatmap(
         analysis_no_outliers['monthly_operator_rankings'],
         save_path=heatmap_no_outliers_path
