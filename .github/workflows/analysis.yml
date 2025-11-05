@@ -1,0 +1,67 @@
+name: Lido Performance Analysis
+
+on:
+  # Run manually via workflow_dispatch
+  workflow_dispatch:
+
+jobs:
+  run_analysis:
+    runs-on: ubuntu-latest
+    timeout-minutes: 720  # 12 hours max
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run Lido Performance Analysis
+      env:
+        KILN_API_KEY: ${{ secrets.KILN_API_KEY }}
+        THEGRAPH_API_KEY: ${{ secrets.THEGRAPH_API_KEY }}
+      run: |
+        python scripts/lido_perf_analysis.py
+
+    - name: Commit and push results
+      if: always()
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git add output/*.json output/*.log output/*.csv output/*.png || true
+        git diff --staged --quiet || git commit -m "[BOT] Update Lido analysis results"
+        git push || echo "No changes to push"
+
+    - name: Upload results as artifact
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: lido-analysis-results
+        path: |
+          output/lido_processing.log
+          output/lido_checkpoint.json
+          output/lido_results.json
+          output/*.csv
+          output/*.png
+        retention-days: 30
+
+    - name: Display summary
+      if: always()
+      run: |
+        if [ -f output/lido_checkpoint.json ]; then
+          echo "=== Checkpoint Status ==="
+          cat output/lido_checkpoint.json | python3 -m json.tool
+        fi
+        if [ -f output/lido_processing.log ]; then
+          echo "=== Last 50 log lines ==="
+          tail -50 output/lido_processing.log
+        fi
+        if [ -f output/kiln_analysis_2023_onwards.csv ]; then
+          echo "=== Analysis Summary ==="
+          head -20 output/kiln_analysis_2023_onwards.csv
+        fi
