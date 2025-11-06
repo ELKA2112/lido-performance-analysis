@@ -15,7 +15,7 @@ Process:
 Key Features:
 - Configurable reference operator: Set any operator as the benchmark in CONFIG
 - Accurate balance tracking: Uses /eth/stakes endpoint to calculate precise active balances
-  by tracking validator activations (delegated_at) and exits (exited_at). This is more
+  by tracking validator activations (activated_at) and exits (exited_at). This is more
   accurate than /rewards endpoint which includes exited but not yet withdrawn validators.
 - Checkpointing: Resume capability for long-running jobs
 - Outlier detection: Statistical outlier removal using standard deviations
@@ -329,9 +329,9 @@ async def get_eth_stakes_async(keys_list, api_key, session, semaphore):
 
     for stake in all_stakes_data:
         # Each validator is 32 ETH
-        # Add balance when delegated
-        if 'delegated_at' in stake and stake['delegated_at']:
-            activation_date = stake['delegated_at'][:10]
+        # Add balance when activated
+        if 'activated_at' in stake and stake['activated_at']:
+            activation_date = stake['activated_at'][:10]
             if activation_date not in balance_changes:
                 balance_changes[activation_date] = 0
             balance_changes[activation_date] += 32

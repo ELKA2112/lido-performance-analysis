@@ -150,7 +150,7 @@ All plots, CSV files, and analysis will automatically reference your chosen oper
 The script uses two endpoints for maximum accuracy:
 
 1. **`/eth/rewards`**: Provides daily rewards data
-2. **`/eth/stakes`**: Provides validator activation (`delegated_at`) and exit (`exited_at`) dates
+2. **`/eth/stakes`**: Provides validator activation (`activated_at`) and exit (`exited_at`) dates
 
 By tracking activations and exits, the script calculates the **true active balance** at any point in time, excluding validators that have exited but not yet withdrawn.
 
