@@ -1108,22 +1108,22 @@ def analyse_operator_performance_no_outliers():
 
     df_monthly = pd.DataFrame(df_data)
 
-    log_message(f"Analysis complete: {len(kiln_analysis)} months analyzed (outliers removed)")
+    log_message(f"Analysis complete: {len(ref_analysis)} months analyzed (outliers removed)")
 
     return {
-        'kiln_analysis': kiln_analysis_sorted,
+        'ref_analysis': ref_analysis_sorted,
         'network_metrics': network_metrics,
         'monthly_dataframe': df_monthly,
         'monthly_operator_rankings': monthly_operator_rankings,
         'top_3_operators_raw_data': top_3_operators_data,
         'summary': {
-            'total_months': len(kiln_analysis),
-            'avg_rank': np.mean([m['kiln_rank'] for m in kiln_analysis.values()]) if kiln_analysis else 0,
-            'avg_percentile': np.mean([m['percentile_rank'] for m in kiln_analysis.values()]) if kiln_analysis else 0,
-            'months_above_mean': sum(1 for m in kiln_analysis.values() if m['apr_diff_vs_mean'] > 0),
-            'months_above_median': sum(1 for m in kiln_analysis.values() if m['apr_diff_vs_median'] > 0),
-            'avg_apr_diff_vs_mean_bps': np.mean([m['apr_diff_vs_mean_bps'] for m in kiln_analysis.values()]) if kiln_analysis else 0,
-            'avg_apr_diff_vs_median_bps': np.mean([m['apr_diff_vs_median_bps'] for m in kiln_analysis.values()]) if kiln_analysis else 0,
+            'total_months': len(ref_analysis),
+            'avg_rank': np.mean([m['ref_rank'] for m in ref_analysis.values()]) if ref_analysis else 0,
+            'avg_percentile': np.mean([m['percentile_rank'] for m in ref_analysis.values()]) if ref_analysis else 0,
+            'months_above_mean': sum(1 for m in ref_analysis.values() if m['apr_diff_vs_mean'] > 0),
+            'months_above_median': sum(1 for m in ref_analysis.values() if m['apr_diff_vs_median'] > 0),
+            'avg_apr_diff_vs_mean_bps': np.mean([m['apr_diff_vs_mean_bps'] for m in ref_analysis.values()]) if ref_analysis else 0,
+            'avg_apr_diff_vs_median_bps': np.mean([m['apr_diff_vs_median_bps'] for m in ref_analysis.values()]) if ref_analysis else 0,
             'total_extra_rewards_vs_mean': total_extra_rewards_vs_mean,
             'total_extra_rewards_vs_median': total_extra_rewards_vs_median,
             'total_extra_rewards_vs_top10_mean': total_extra_rewards_vs_top10_mean,
@@ -1315,7 +1315,7 @@ def plot_operator_rankings_heatmap(monthly_operator_rankings, save_path=None):
     Create a heatmap showing ALL operator rankings over time, ordered by average rank.
 
     Args:
-        monthly_operator_rankings: Dict from analyse_kiln_perf_vs_others() functions
+        monthly_operator_rankings: Dict from analyse_operator_performance() functions
         save_path: Optional path to save the figure
 
     Returns:
