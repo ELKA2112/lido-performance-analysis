@@ -8,6 +8,11 @@ jobs:
   run_analysis:
     runs-on: ubuntu-latest
     timeout-minutes: 720  # 12 hours max
+
+    # Grant write permissions to push results back to repo
+    permissions:
+      contents: write
+
     steps:
     - uses: actions/checkout@v3
 
@@ -61,7 +66,7 @@ jobs:
           echo "=== Last 50 log lines ==="
           tail -50 output/lido_processing.log
         fi
-        if [ -f output/kiln_analysis_2023_onwards.csv ]; then
+        if [ -f output/kiln_analysis.csv ]; then
           echo "=== Analysis Summary ==="
-          head -20 output/kiln_analysis_2023_onwards.csv
+          head -20 output/kiln_analysis.csv
         fi
