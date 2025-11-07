@@ -1,0 +1,855 @@
+[2025-11-06 16:28:17] ================================================================================
+[2025-11-06 16:28:17] STARTING LIDO PERFORMANCE ANALYSIS
+[2025-11-06 16:28:17] ================================================================================
+[2025-11-06 16:28:17] 
+================================================================================
+[2025-11-06 16:28:17] STEP 1: FETCHING LIDO DATA
+[2025-11-06 16:28:17] ================================================================================
+[2025-11-06 16:28:17] Fetching operators from Lido subgraph...
+[2025-11-06 16:28:17] Retrieved 39 operators
+[2025-11-06 16:28:17] Checkpoint saved: 0/39 operators completed
+[2025-11-06 16:28:17] Fetching validator keys for each operator...
+[2025-11-06 16:28:17] Processing operator 0 - Staking Facilities
+[2025-11-06 16:28:18]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:28:18]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:28:19]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:28:19]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:28:19]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:28:19]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:28:20]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:28:20]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:28:21]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:28:22]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:28:22]   Retrieved 400 keys at offset 10000
+[2025-11-06 16:28:22]   Total keys for operator 0: 10400
+[2025-11-06 16:28:22] Processing operator 1 - Jump Crypto
+[2025-11-06 16:28:22]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:28:22]   Total keys for operator 1: 1000
+[2025-11-06 16:28:22] Processing operator 10 - Figment
+[2025-11-06 16:28:23]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:28:23]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:28:23]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:28:23]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:28:24]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:28:24]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:28:24]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:28:24]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:28:25]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:28:25]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:28:25]   Retrieved 1000 keys at offset 10000
+[2025-11-06 16:28:25]   Total keys for operator 10: 11000
+[2025-11-06 16:28:25] Processing operator 11 - Allnodes
+[2025-11-06 16:28:26]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:28:26]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:28:26]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:28:27]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:28:27]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:28:27]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:28:27]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:28:28]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:28:28]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:28:28]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:28:28]   Retrieved 1000 keys at offset 10000
+[2025-11-06 16:28:28]   Total keys for operator 11: 11000
+[2025-11-06 16:28:28] Processing operator 12 - Anyblock Analytics
+[2025-11-06 16:28:29]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:28:29]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:28:29]   Retrieved 300 keys at offset 2000
+[2025-11-06 16:28:29]   Total keys for operator 12: 2300
+[2025-11-06 16:28:29] Processing operator 13 - Blockdaemon
+[2025-11-06 16:28:30]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:28:30]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:28:30]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:28:31]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:28:31]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:28:31]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:28:31]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:28:32]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:28:32]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:28:32]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:28:33]   Retrieved 1000 keys at offset 10000
+[2025-11-06 16:28:33]   Total keys for operator 13: 11000
+[2025-11-06 16:28:33] Processing operator 14 - Stakin
+[2025-11-06 16:28:33]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:28:34]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:28:34]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:28:34]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:28:35]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:28:35]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:28:35]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:28:35]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:28:36]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:28:36]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:28:36]   Retrieved 1000 keys at offset 10000
+[2025-11-06 16:28:36]   Total keys for operator 14: 11000
+[2025-11-06 16:28:36] Processing operator 15 - ChainLayer
+[2025-11-06 16:28:37]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:28:37]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:28:38]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:28:38]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:28:38]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:28:38]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:28:39]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:28:39]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:28:39]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:28:40]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:28:40]   Retrieved 1000 keys at offset 10000
+[2025-11-06 16:28:40]   Total keys for operator 15: 11000
+[2025-11-06 16:28:40] Processing operator 16 - Simply Staking
+[2025-11-06 16:28:40]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:28:40]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:28:41]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:28:41]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:28:41]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:28:41]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:28:42]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:28:42]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:28:42]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:28:42]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:28:42]   Retrieved 1000 keys at offset 10000
+[2025-11-06 16:28:43]   Total keys for operator 16: 11000
+[2025-11-06 16:28:43] Processing operator 17 - Solstice
+[2025-11-06 16:28:43]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:28:43]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:28:43]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:28:44]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:28:44]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:28:44]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:28:44]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:28:44]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:28:45]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:28:45]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:28:45]   Retrieved 600 keys at offset 10000
+[2025-11-06 16:28:45]   Total keys for operator 17: 10600
+[2025-11-06 16:28:45] Processing operator 18 - Stakely
+[2025-11-06 16:28:46]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:28:46]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:28:46]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:28:47]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:28:47]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:28:47]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:28:47]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:28:48]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:28:48]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:28:48]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:28:48]   Retrieved 1000 keys at offset 10000
+[2025-11-06 16:28:48]   Retrieved 1000 keys at offset 11000
+[2025-11-06 16:28:49]   Retrieved 1000 keys at offset 12000
+[2025-11-06 16:28:49]   Total keys for operator 18: 13000
+[2025-11-06 16:28:49] Processing operator 19 - InfStones
+[2025-11-06 16:28:49]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:28:49]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:28:50]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:28:50]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:28:50]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:28:51]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:28:51]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:28:51]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:28:51]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:28:52]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:28:52]   Retrieved 1000 keys at offset 10000
+[2025-11-06 16:28:52]   Retrieved 1000 keys at offset 11000
+[2025-11-06 16:28:52]   Retrieved 1000 keys at offset 12000
+[2025-11-06 16:28:53]   Retrieved 1000 keys at offset 13000
+[2025-11-06 16:28:53]   Retrieved 1000 keys at offset 14000
+[2025-11-06 16:28:53]   Retrieved 1000 keys at offset 15000
+[2025-11-06 16:28:53]   Retrieved 1000 keys at offset 16000
+[2025-11-06 16:28:54]   Retrieved 1000 keys at offset 17000
+[2025-11-06 16:28:54]   Retrieved 1000 keys at offset 18000
+[2025-11-06 16:28:54]   Retrieved 1000 keys at offset 19000
+[2025-11-06 16:28:54]   Retrieved 1000 keys at offset 20000
+[2025-11-06 16:28:54]   Total keys for operator 19: 21000
+[2025-11-06 16:28:54] Processing operator 2 - P2P.org
+[2025-11-06 16:28:55]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:28:55]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:28:55]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:28:55]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:28:56]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:28:56]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:28:56]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:28:57]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:28:57]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:28:57]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:28:57]   Retrieved 1000 keys at offset 10000
+[2025-11-06 16:28:58]   Retrieved 1000 keys at offset 11000
+[2025-11-06 16:28:58]   Retrieved 1000 keys at offset 12000
+[2025-11-06 16:28:58]   Total keys for operator 2: 13000
+[2025-11-06 16:28:58] Processing operator 20 - HashKey Cloud
+[2025-11-06 16:28:58]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:28:58]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:28:59]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:28:59]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:28:59]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:28:59]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:29:00]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:29:00]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:29:00]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:29:00]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:29:00]   Retrieved 1000 keys at offset 10000
+[2025-11-06 16:29:01]   Total keys for operator 20: 11000
+[2025-11-06 16:29:01] Processing operator 21 - Consensys
+[2025-11-06 16:29:01]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:29:01]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:29:01]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:29:02]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:29:02]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:29:02]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:29:02]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:29:02]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:29:03]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:29:03]   Retrieved 501 keys at offset 9000
+[2025-11-06 16:29:03]   Total keys for operator 21: 9501
+[2025-11-06 16:29:03] Processing operator 22 - RockLogic GmbH
+[2025-11-06 16:29:03]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:29:03]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:29:04]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:29:04]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:29:04]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:29:04]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:29:05]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:29:05]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:29:05]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:29:06]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:29:06]   Retrieved 1000 keys at offset 10000
+[2025-11-06 16:29:06]   Total keys for operator 22: 11000
+[2025-11-06 16:29:06] Processing operator 23 - Galaxy
+[2025-11-06 16:29:06]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:29:07]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:29:07]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:29:07]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:29:07]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:29:07]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:29:08]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:29:08]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:29:08]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:29:08]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:29:09]   Retrieved 1000 keys at offset 10000
+[2025-11-06 16:29:09]   Total keys for operator 23: 11000
+[2025-11-06 16:29:09] Processing operator 24 - Kukis Global
+[2025-11-06 16:29:09]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:29:09]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:29:09]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:29:10]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:29:10]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:29:10]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:29:10]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:29:11]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:29:11]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:29:11]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:29:11]   Retrieved 1000 keys at offset 10000
+[2025-11-06 16:29:11]   Retrieved 1000 keys at offset 11000
+[2025-11-06 16:29:12]   Total keys for operator 24: 12000
+[2025-11-06 16:29:12] Processing operator 25 - Twinstake
+[2025-11-06 16:29:12]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:29:12]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:29:12]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:29:13]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:29:13]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:29:13]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:29:13]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:29:14]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:29:14]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:29:14]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:29:14]   Retrieved 500 keys at offset 10000
+[2025-11-06 16:29:14]   Total keys for operator 25: 10500
+[2025-11-06 16:29:14] Processing operator 26 - ChainSafe
+[2025-11-06 16:29:15]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:29:15]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:29:15]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:29:15]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:29:16]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:29:16]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:29:16]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:29:16]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:29:17]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:29:17]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:29:18]   Retrieved 1000 keys at offset 10000
+[2025-11-06 16:29:18]   Total keys for operator 26: 11000
+[2025-11-06 16:29:18] Processing operator 27 - Prysm Team at Offchain Labs
+[2025-11-06 16:29:19]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:29:19]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:29:20]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:29:20]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:29:22]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:29:22]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:29:22]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:29:23]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:29:23]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:29:23]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:29:23]   Retrieved 1000 keys at offset 10000
+[2025-11-06 16:29:24]   Retrieved 1000 keys at offset 11000
+[2025-11-06 16:29:24]   Retrieved 1000 keys at offset 12000
+[2025-11-06 16:29:24]   Retrieved 100 keys at offset 13000
+[2025-11-06 16:29:24]   Total keys for operator 27: 13100
+[2025-11-06 16:29:24] Processing operator 28 - Sigma Prime
+[2025-11-06 16:29:24]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:29:25]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:29:25]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:29:25]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:29:26]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:29:26]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:29:26]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:29:27]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:29:27]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:29:27]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:29:27]   Retrieved 1000 keys at offset 10000
+[2025-11-06 16:29:28]   Total keys for operator 28: 11000
+[2025-11-06 16:29:28] Processing operator 29 - Attestant (BVI) Limited
+[2025-11-06 16:29:28]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:29:29]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:29:29]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:29:29]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:29:29]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:29:30]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:29:30]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:29:30]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:29:30]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:29:31]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:29:31]   Retrieved 1000 keys at offset 10000
+[2025-11-06 16:29:31]   Retrieved 1000 keys at offset 11000
+[2025-11-06 16:29:32]   Retrieved 1000 keys at offset 12000
+[2025-11-06 16:29:32]   Total keys for operator 29: 13000
+[2025-11-06 16:29:32] Processing operator 3 - Chorus One
+[2025-11-06 16:29:32]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:29:32]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:29:33]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:29:33]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:29:33]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:29:34]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:29:34]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:29:34]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:29:34]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:29:35]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:29:35]   Retrieved 1000 keys at offset 10000
+[2025-11-06 16:29:35]   Retrieved 1000 keys at offset 11000
+[2025-11-06 16:29:36]   Total keys for operator 3: 12000
+[2025-11-06 16:29:36] Processing operator 30 - Launchnodes
+[2025-11-06 16:29:36]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:29:36]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:29:37]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:29:37]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:29:37]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:29:38]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:29:38]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:29:38]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:29:39]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:29:39]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:29:39]   Retrieved 1000 keys at offset 10000
+[2025-11-06 16:29:39]   Retrieved 1000 keys at offset 11000
+[2025-11-06 16:29:40]   Retrieved 1000 keys at offset 12000
+[2025-11-06 16:29:40]   Retrieved 1000 keys at offset 13000
+[2025-11-06 16:29:40]   Total keys for operator 30: 14000
+[2025-11-06 16:29:40] Processing operator 31 - SenseiNode
+[2025-11-06 16:29:40]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:29:41]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:29:41]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:29:41]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:29:42]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:29:42]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:29:42]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:29:42]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:29:43]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:29:43]   Retrieved 250 keys at offset 9000
+[2025-11-06 16:29:43]   Total keys for operator 31: 9250
+[2025-11-06 16:29:43] Processing operator 32 - A41
+[2025-11-06 16:29:43]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:29:44]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:29:44]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:29:44]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:29:45]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:29:45]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:29:45]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:29:45]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:29:46]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:29:46]   Retrieved 700 keys at offset 9000
+[2025-11-06 16:29:46]   Total keys for operator 32: 9700
+[2025-11-06 16:29:46] Processing operator 33 - Develp GmbH
+[2025-11-06 16:29:47]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:29:47]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:29:47]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:29:48]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:29:48]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:29:48]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:29:48]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:29:49]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:29:49]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:29:49]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:29:49]   Retrieved 1000 keys at offset 10000
+[2025-11-06 16:29:50]   Retrieved 300 keys at offset 11000
+[2025-11-06 16:29:50]   Total keys for operator 33: 11300
+[2025-11-06 16:29:50] Processing operator 34 - Ebunker
+[2025-11-06 16:29:50]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:29:51]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:29:51]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:29:51]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:29:51]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:29:52]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:29:52]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:29:52]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:29:52]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:29:53]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:29:53]   Retrieved 1000 keys at offset 10000
+[2025-11-06 16:29:53]   Total keys for operator 34: 11000
+[2025-11-06 16:29:53] Processing operator 35 - Gateway.fm AS
+[2025-11-06 16:29:53]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:29:54]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:29:54]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:29:54]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:29:55]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:29:55]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:29:55]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:29:56]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:29:56]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:29:56]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:29:57]   Retrieved 1000 keys at offset 10000
+[2025-11-06 16:29:57]   Retrieved 1000 keys at offset 11000
+[2025-11-06 16:29:57]   Retrieved 300 keys at offset 12000
+[2025-11-06 16:29:57]   Total keys for operator 35: 12300
+[2025-11-06 16:29:57] Processing operator 36 - Pier Two
+[2025-11-06 16:29:58]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:29:58]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:29:58]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:29:58]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:29:59]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:29:59]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:29:59]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:29:59]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:30:00]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:30:00]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:30:01]   Retrieved 1000 keys at offset 10000
+[2025-11-06 16:30:01]   Retrieved 1000 keys at offset 11000
+[2025-11-06 16:30:02]   Retrieved 1000 keys at offset 12000
+[2025-11-06 16:30:02]   Retrieved 1000 keys at offset 13000
+[2025-11-06 16:30:03]   Retrieved 1000 keys at offset 14000
+[2025-11-06 16:30:03]   Retrieved 1000 keys at offset 15000
+[2025-11-06 16:30:03]   Retrieved 1000 keys at offset 16000
+[2025-11-06 16:30:04]   Retrieved 1000 keys at offset 17000
+[2025-11-06 16:30:04]   Retrieved 100 keys at offset 18000
+[2025-11-06 16:30:04]   Total keys for operator 36: 18100
+[2025-11-06 16:30:04] Processing operator 37 - ParaFi Technologies LLC
+[2025-11-06 16:30:05]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:30:05]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:30:05]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:30:06]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:30:06]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:30:07]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:30:07]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:30:07]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:30:08]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:30:08]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:30:08]   Retrieved 1000 keys at offset 10000
+[2025-11-06 16:30:09]   Retrieved 1000 keys at offset 11000
+[2025-11-06 16:30:09]   Total keys for operator 37: 12000
+[2025-11-06 16:30:09] Processing operator 38 - RockawayX Infra
+[2025-11-06 16:30:09]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:30:09]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:30:10]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:30:10]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:30:10]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:30:11]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:30:11]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:30:11]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:30:11]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:30:12]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:30:12]   Total keys for operator 38: 10000
+[2025-11-06 16:30:12] Processing operator 4 - stakefish
+[2025-11-06 16:30:12]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:30:13]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:30:13]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:30:13]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:30:14]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:30:14]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:30:14]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:30:15]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:30:15]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:30:15]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:30:15]   Retrieved 500 keys at offset 10000
+[2025-11-06 16:30:16]   Total keys for operator 4: 10500
+[2025-11-06 16:30:16] Processing operator 5 - Blockscape
+[2025-11-06 16:30:16]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:30:17]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:30:17]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:30:18]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:30:18]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:30:18]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:30:19]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:30:19]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:30:19]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:30:20]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:30:20]   Retrieved 1000 keys at offset 10000
+[2025-11-06 16:30:23]   Retrieved 1000 keys at offset 11000
+[2025-11-06 16:30:24]   Retrieved 1000 keys at offset 12000
+[2025-11-06 16:30:24]   Total keys for operator 5: 13000
+[2025-11-06 16:30:24] Processing operator 6 - DSRV
+[2025-11-06 16:30:24]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:30:25]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:30:25]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:30:25]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:30:26]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:30:26]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:30:26]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:30:26]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:30:27]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:30:27]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:30:27]   Retrieved 1000 keys at offset 10000
+[2025-11-06 16:30:27]   Total keys for operator 6: 11000
+[2025-11-06 16:30:27] Processing operator 7 - Everstake
+[2025-11-06 16:30:28]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:30:28]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:30:28]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:30:28]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:30:29]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:30:29]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:30:29]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:30:29]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:30:29]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:30:30]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:30:30]   Retrieved 1000 keys at offset 10000
+[2025-11-06 16:30:30]   Total keys for operator 7: 11000
+[2025-11-06 16:30:30] Processing operator 8 - Kiln
+[2025-11-06 16:30:30]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:30:31]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:30:31]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:30:31]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:30:31]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:30:32]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:30:32]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:30:32]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:30:32]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:30:33]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:30:33]   Retrieved 1000 keys at offset 10000
+[2025-11-06 16:30:33]   Total keys for operator 8: 11000
+[2025-11-06 16:30:33] Processing operator 9 - RockX
+[2025-11-06 16:30:33]   Retrieved 1000 keys at offset 0
+[2025-11-06 16:30:33]   Retrieved 1000 keys at offset 1000
+[2025-11-06 16:30:34]   Retrieved 1000 keys at offset 2000
+[2025-11-06 16:30:34]   Retrieved 1000 keys at offset 3000
+[2025-11-06 16:30:34]   Retrieved 1000 keys at offset 4000
+[2025-11-06 16:30:35]   Retrieved 1000 keys at offset 5000
+[2025-11-06 16:30:35]   Retrieved 1000 keys at offset 6000
+[2025-11-06 16:30:35]   Retrieved 1000 keys at offset 7000
+[2025-11-06 16:30:36]   Retrieved 1000 keys at offset 8000
+[2025-11-06 16:30:36]   Retrieved 1000 keys at offset 9000
+[2025-11-06 16:30:36]   Retrieved 1000 keys at offset 10000
+[2025-11-06 16:30:37]   Total keys for operator 9: 11000
+[2025-11-06 16:30:37] All operators and their keys retrieved
+[2025-11-06 16:30:37] 
+================================================================================
+[2025-11-06 16:30:37] STEP 2: PROCESSING OPERATOR REWARDS
+[2025-11-06 16:30:37] ================================================================================
+[2025-11-06 16:30:37] Processing 39 operators sequentially (out of 39 total)
+[2025-11-06 16:30:37] Each operator will fetch batches with max 10 concurrent API calls
+[2025-11-06 16:30:37] Using accurate balance tracking from /eth/stakes endpoint (tracks activations and exits)
+[2025-11-06 16:30:37] ===== Operator 1/39: 0 - Staking Facilities =====
+[2025-11-06 16:30:37]   Validator keys: 10400
+[2025-11-06 16:30:37] Fetching data for operator 0 - Staking Facilities
+[2025-11-06 16:34:55] Successfully fetched data for operator 0
+[2025-11-06 16:34:55] Checkpoint saved: 1/39 operators completed
+[2025-11-06 16:34:55] ✓ Progress: 1/39 operators completed
+[2025-11-06 16:34:55] ===== Operator 2/39: 1 - Jump Crypto =====
+[2025-11-06 16:34:55]   Validator keys: 1000
+[2025-11-06 16:34:55] Fetching data for operator 1 - Jump Crypto
+[2025-11-06 16:35:41] Successfully fetched data for operator 1
+[2025-11-06 16:35:41] Checkpoint saved: 2/39 operators completed
+[2025-11-06 16:35:41] ✓ Progress: 2/39 operators completed
+[2025-11-06 16:35:41] ===== Operator 3/39: 10 - Figment =====
+[2025-11-06 16:35:41]   Validator keys: 11000
+[2025-11-06 16:35:41] Fetching data for operator 10 - Figment
+[2025-11-06 16:40:00] Successfully fetched data for operator 10
+[2025-11-06 16:40:00] Checkpoint saved: 3/39 operators completed
+[2025-11-06 16:40:00] ✓ Progress: 3/39 operators completed
+[2025-11-06 16:40:00] ===== Operator 4/39: 11 - Allnodes =====
+[2025-11-06 16:40:00]   Validator keys: 11000
+[2025-11-06 16:40:00] Fetching data for operator 11 - Allnodes
+[2025-11-06 16:44:25] Successfully fetched data for operator 11
+[2025-11-06 16:44:25] Checkpoint saved: 4/39 operators completed
+[2025-11-06 16:44:25] ✓ Progress: 4/39 operators completed
+[2025-11-06 16:44:25] ===== Operator 5/39: 12 - Anyblock Analytics =====
+[2025-11-06 16:44:25]   Validator keys: 2300
+[2025-11-06 16:44:25] Fetching data for operator 12 - Anyblock Analytics
+[2025-11-06 16:45:26] Successfully fetched data for operator 12
+[2025-11-06 16:45:26] Checkpoint saved: 5/39 operators completed
+[2025-11-06 16:45:26] ✓ Progress: 5/39 operators completed
+[2025-11-06 16:45:26] ===== Operator 6/39: 13 - Blockdaemon =====
+[2025-11-06 16:45:26]   Validator keys: 11000
+[2025-11-06 16:45:26] Fetching data for operator 13 - Blockdaemon
+[2025-11-06 16:49:16] Successfully fetched data for operator 13
+[2025-11-06 16:49:16] Checkpoint saved: 6/39 operators completed
+[2025-11-06 16:49:16] ✓ Progress: 6/39 operators completed
+[2025-11-06 16:49:16] ===== Operator 7/39: 14 - Stakin =====
+[2025-11-06 16:49:16]   Validator keys: 11000
+[2025-11-06 16:49:16] Fetching data for operator 14 - Stakin
+[2025-11-06 16:53:15] Successfully fetched data for operator 14
+[2025-11-06 16:53:15] Checkpoint saved: 7/39 operators completed
+[2025-11-06 16:53:15] ✓ Progress: 7/39 operators completed
+[2025-11-06 16:53:15] ===== Operator 8/39: 15 - ChainLayer =====
+[2025-11-06 16:53:15]   Validator keys: 11000
+[2025-11-06 16:53:15] Fetching data for operator 15 - ChainLayer
+[2025-11-06 16:57:28] Successfully fetched data for operator 15
+[2025-11-06 16:57:28] Checkpoint saved: 8/39 operators completed
+[2025-11-06 16:57:28] ✓ Progress: 8/39 operators completed
+[2025-11-06 16:57:28] ===== Operator 9/39: 16 - Simply Staking =====
+[2025-11-06 16:57:28]   Validator keys: 11000
+[2025-11-06 16:57:28] Fetching data for operator 16 - Simply Staking
+[2025-11-06 17:01:41] Successfully fetched data for operator 16
+[2025-11-06 17:01:41] Checkpoint saved: 9/39 operators completed
+[2025-11-06 17:01:41] ✓ Progress: 9/39 operators completed
+[2025-11-06 17:01:41] ===== Operator 10/39: 17 - Solstice =====
+[2025-11-06 17:01:41]   Validator keys: 10600
+[2025-11-06 17:01:41] Fetching data for operator 17 - Solstice
+[2025-11-06 17:05:56] Successfully fetched data for operator 17
+[2025-11-06 17:05:56] Checkpoint saved: 10/39 operators completed
+[2025-11-06 17:05:56] ✓ Progress: 10/39 operators completed
+[2025-11-06 17:05:56] ===== Operator 11/39: 18 - Stakely =====
+[2025-11-06 17:05:56]   Validator keys: 13000
+[2025-11-06 17:05:56] Fetching data for operator 18 - Stakely
+[2025-11-06 17:09:46] Successfully fetched data for operator 18
+[2025-11-06 17:09:46] Checkpoint saved: 11/39 operators completed
+[2025-11-06 17:09:46] ✓ Progress: 11/39 operators completed
+[2025-11-06 17:09:46] ===== Operator 12/39: 19 - InfStones =====
+[2025-11-06 17:09:46]   Validator keys: 21000
+[2025-11-06 17:09:46] Fetching data for operator 19 - InfStones
+[2025-11-06 17:14:44] Successfully fetched data for operator 19
+[2025-11-06 17:14:44] Checkpoint saved: 12/39 operators completed
+[2025-11-06 17:14:44] ✓ Progress: 12/39 operators completed
+[2025-11-06 17:14:44] ===== Operator 13/39: 2 - P2P.org =====
+[2025-11-06 17:14:44]   Validator keys: 13000
+[2025-11-06 17:14:44] Fetching data for operator 2 - P2P.org
+[2025-11-06 17:19:23] Successfully fetched data for operator 2
+[2025-11-06 17:19:23] Checkpoint saved: 13/39 operators completed
+[2025-11-06 17:19:23] ✓ Progress: 13/39 operators completed
+[2025-11-06 17:19:23] ===== Operator 14/39: 20 - HashKey Cloud =====
+[2025-11-06 17:19:23]   Validator keys: 11000
+[2025-11-06 17:19:23] Fetching data for operator 20 - HashKey Cloud
+[2025-11-06 17:23:01] Successfully fetched data for operator 20
+[2025-11-06 17:23:01] Checkpoint saved: 14/39 operators completed
+[2025-11-06 17:23:02] ✓ Progress: 14/39 operators completed
+[2025-11-06 17:23:02] ===== Operator 15/39: 21 - Consensys =====
+[2025-11-06 17:23:02]   Validator keys: 9501
+[2025-11-06 17:23:02] Fetching data for operator 21 - Consensys
+[2025-11-06 17:26:15] Successfully fetched data for operator 21
+[2025-11-06 17:26:15] Checkpoint saved: 15/39 operators completed
+[2025-11-06 17:26:15] ✓ Progress: 15/39 operators completed
+[2025-11-06 17:26:15] ===== Operator 16/39: 22 - RockLogic GmbH =====
+[2025-11-06 17:26:15]   Validator keys: 11000
+[2025-11-06 17:26:15] Fetching data for operator 22 - RockLogic GmbH
+[2025-11-06 17:29:04] Successfully fetched data for operator 22
+[2025-11-06 17:29:04] Checkpoint saved: 16/39 operators completed
+[2025-11-06 17:29:04] ✓ Progress: 16/39 operators completed
+[2025-11-06 17:29:04] ===== Operator 17/39: 23 - Galaxy =====
+[2025-11-06 17:29:04]   Validator keys: 11000
+[2025-11-06 17:29:04] Fetching data for operator 23 - Galaxy
+[2025-11-06 17:32:25] Successfully fetched data for operator 23
+[2025-11-06 17:32:25] Checkpoint saved: 17/39 operators completed
+[2025-11-06 17:32:25] ✓ Progress: 17/39 operators completed
+[2025-11-06 17:32:25] ===== Operator 18/39: 24 - Kukis Global =====
+[2025-11-06 17:32:25]   Validator keys: 12000
+[2025-11-06 17:32:25] Fetching data for operator 24 - Kukis Global
+[2025-11-06 17:35:45] Successfully fetched data for operator 24
+[2025-11-06 17:35:45] Checkpoint saved: 18/39 operators completed
+[2025-11-06 17:35:45] ✓ Progress: 18/39 operators completed
+[2025-11-06 17:35:45] ===== Operator 19/39: 25 - Twinstake =====
+[2025-11-06 17:35:45]   Validator keys: 10500
+[2025-11-06 17:35:45] Fetching data for operator 25 - Twinstake
+[2025-11-06 17:39:04] Successfully fetched data for operator 25
+[2025-11-06 17:39:04] Checkpoint saved: 19/39 operators completed
+[2025-11-06 17:39:04] ✓ Progress: 19/39 operators completed
+[2025-11-06 17:39:04] ===== Operator 20/39: 26 - ChainSafe =====
+[2025-11-06 17:39:04]   Validator keys: 11000
+[2025-11-06 17:39:04] Fetching data for operator 26 - ChainSafe
+[2025-11-06 17:42:16] Successfully fetched data for operator 26
+[2025-11-06 17:42:16] Checkpoint saved: 20/39 operators completed
+[2025-11-06 17:42:17] ✓ Progress: 20/39 operators completed
+[2025-11-06 17:42:17] ===== Operator 21/39: 27 - Prysm Team at Offchain Labs =====
+[2025-11-06 17:42:17]   Validator keys: 13100
+[2025-11-06 17:42:17] Fetching data for operator 27 - Prysm Team at Offchain Labs
+[2025-11-06 17:45:27] Successfully fetched data for operator 27
+[2025-11-06 17:45:27] Checkpoint saved: 21/39 operators completed
+[2025-11-06 17:45:27] ✓ Progress: 21/39 operators completed
+[2025-11-06 17:45:27] ===== Operator 22/39: 28 - Sigma Prime =====
+[2025-11-06 17:45:27]   Validator keys: 11000
+[2025-11-06 17:45:27] Fetching data for operator 28 - Sigma Prime
+[2025-11-06 17:48:41] Successfully fetched data for operator 28
+[2025-11-06 17:48:41] Checkpoint saved: 22/39 operators completed
+[2025-11-06 17:48:41] ✓ Progress: 22/39 operators completed
+[2025-11-06 17:48:41] ===== Operator 23/39: 29 - Attestant (BVI) Limited =====
+[2025-11-06 17:48:41]   Validator keys: 13000
+[2025-11-06 17:48:41] Fetching data for operator 29 - Attestant (BVI) Limited
+[2025-11-06 17:51:54] Successfully fetched data for operator 29
+[2025-11-06 17:51:54] Checkpoint saved: 23/39 operators completed
+[2025-11-06 17:51:54] ✓ Progress: 23/39 operators completed
+[2025-11-06 17:51:54] ===== Operator 24/39: 3 - Chorus One =====
+[2025-11-06 17:51:54]   Validator keys: 12000
+[2025-11-06 17:51:54] Fetching data for operator 3 - Chorus One
+[2025-11-06 17:56:23] Successfully fetched data for operator 3
+[2025-11-06 17:56:23] Checkpoint saved: 24/39 operators completed
+[2025-11-06 17:56:23] ✓ Progress: 24/39 operators completed
+[2025-11-06 17:56:23] ===== Operator 25/39: 30 - Launchnodes =====
+[2025-11-06 17:56:23]   Validator keys: 14000
+[2025-11-06 17:56:23] Fetching data for operator 30 - Launchnodes
+[2025-11-06 17:58:06] Successfully fetched data for operator 30
+[2025-11-06 17:58:06] Checkpoint saved: 25/39 operators completed
+[2025-11-06 17:58:06] ✓ Progress: 25/39 operators completed
+[2025-11-06 17:58:06] ===== Operator 26/39: 31 - SenseiNode =====
+[2025-11-06 17:58:06]   Validator keys: 9250
+[2025-11-06 17:58:06] Fetching data for operator 31 - SenseiNode
+[2025-11-06 18:00:12] Successfully fetched data for operator 31
+[2025-11-06 18:00:12] Checkpoint saved: 26/39 operators completed
+[2025-11-06 18:00:12] ✓ Progress: 26/39 operators completed
+[2025-11-06 18:00:12] ===== Operator 27/39: 32 - A41 =====
+[2025-11-06 18:00:12]   Validator keys: 9700
+[2025-11-06 18:00:12] Fetching data for operator 32 - A41
+[2025-11-06 18:02:12] Successfully fetched data for operator 32
+[2025-11-06 18:02:12] Checkpoint saved: 27/39 operators completed
+[2025-11-06 18:02:13] ✓ Progress: 27/39 operators completed
+[2025-11-06 18:02:13] ===== Operator 28/39: 33 - Develp GmbH =====
+[2025-11-06 18:02:13]   Validator keys: 11300
+[2025-11-06 18:02:13] Fetching data for operator 33 - Develp GmbH
+[2025-11-06 18:03:42] Successfully fetched data for operator 33
+[2025-11-06 18:03:42] Checkpoint saved: 28/39 operators completed
+[2025-11-06 18:03:42] ✓ Progress: 28/39 operators completed
+[2025-11-06 18:03:42] ===== Operator 29/39: 34 - Ebunker =====
+[2025-11-06 18:03:42]   Validator keys: 11000
+[2025-11-06 18:03:42] Fetching data for operator 34 - Ebunker
+[2025-11-06 18:05:47] Successfully fetched data for operator 34
+[2025-11-06 18:05:47] Checkpoint saved: 29/39 operators completed
+[2025-11-06 18:05:47] ✓ Progress: 29/39 operators completed
+[2025-11-06 18:05:47] ===== Operator 30/39: 35 - Gateway.fm AS =====
+[2025-11-06 18:05:47]   Validator keys: 12300
+[2025-11-06 18:05:47] Fetching data for operator 35 - Gateway.fm AS
+[2025-11-06 18:07:11] Successfully fetched data for operator 35
+[2025-11-06 18:07:11] Checkpoint saved: 30/39 operators completed
+[2025-11-06 18:07:12] ✓ Progress: 30/39 operators completed
+[2025-11-06 18:07:12] ===== Operator 31/39: 36 - Pier Two =====
+[2025-11-06 18:07:12]   Validator keys: 18100
+[2025-11-06 18:07:12] Fetching data for operator 36 - Pier Two
+[2025-11-06 18:09:01] Successfully fetched data for operator 36
+[2025-11-06 18:09:01] Checkpoint saved: 31/39 operators completed
+[2025-11-06 18:09:01] ✓ Progress: 31/39 operators completed
+[2025-11-06 18:09:01] ===== Operator 32/39: 37 - ParaFi Technologies LLC =====
+[2025-11-06 18:09:01]   Validator keys: 12000
+[2025-11-06 18:09:01] Fetching data for operator 37 - ParaFi Technologies LLC
+[2025-11-06 18:11:05] Successfully fetched data for operator 37
+[2025-11-06 18:11:05] Checkpoint saved: 32/39 operators completed
+[2025-11-06 18:11:05] ✓ Progress: 32/39 operators completed
+[2025-11-06 18:11:05] ===== Operator 33/39: 38 - RockawayX Infra =====
+[2025-11-06 18:11:05]   Validator keys: 10000
+[2025-11-06 18:11:05] Fetching data for operator 38 - RockawayX Infra
+[2025-11-06 18:13:10] Successfully fetched data for operator 38
+[2025-11-06 18:13:10] Checkpoint saved: 33/39 operators completed
+[2025-11-06 18:13:10] ✓ Progress: 33/39 operators completed
+[2025-11-06 18:13:10] ===== Operator 34/39: 4 - stakefish =====
+[2025-11-06 18:13:10]   Validator keys: 10500
+[2025-11-06 18:13:10] Fetching data for operator 4 - stakefish
+[2025-11-06 18:17:29] Successfully fetched data for operator 4
+[2025-11-06 18:17:29] Checkpoint saved: 34/39 operators completed
+[2025-11-06 18:17:29] ✓ Progress: 34/39 operators completed
+[2025-11-06 18:17:29] ===== Operator 35/39: 5 - Blockscape =====
+[2025-11-06 18:17:29]   Validator keys: 13000
+[2025-11-06 18:17:29] Fetching data for operator 5 - Blockscape
+[2025-11-06 18:22:04] Successfully fetched data for operator 5
+[2025-11-06 18:22:04] Checkpoint saved: 35/39 operators completed
+[2025-11-06 18:22:05] ✓ Progress: 35/39 operators completed
+[2025-11-06 18:22:05] ===== Operator 36/39: 6 - DSRV =====
+[2025-11-06 18:22:05]   Validator keys: 11000
+[2025-11-06 18:22:05] Fetching data for operator 6 - DSRV
+[2025-11-06 18:26:20] Successfully fetched data for operator 6
+[2025-11-06 18:26:20] Checkpoint saved: 36/39 operators completed
+[2025-11-06 18:26:20] ✓ Progress: 36/39 operators completed
+[2025-11-06 18:26:20] ===== Operator 37/39: 7 - Everstake =====
+[2025-11-06 18:26:20]   Validator keys: 11000
+[2025-11-06 18:26:20] Fetching data for operator 7 - Everstake
+[2025-11-06 18:30:31] Successfully fetched data for operator 7
+[2025-11-06 18:30:31] Checkpoint saved: 37/39 operators completed
+[2025-11-06 18:30:32] ✓ Progress: 37/39 operators completed
+[2025-11-06 18:30:32] ===== Operator 38/39: 8 - Kiln =====
+[2025-11-06 18:30:32]   Validator keys: 11000
+[2025-11-06 18:30:32] Fetching data for operator 8 - Kiln
+[2025-11-06 18:34:51] Successfully fetched data for operator 8
+[2025-11-06 18:34:51] Checkpoint saved: 38/39 operators completed
+[2025-11-06 18:34:52] ✓ Progress: 38/39 operators completed
+[2025-11-06 18:34:52] ===== Operator 39/39: 9 - RockX =====
+[2025-11-06 18:34:52]   Validator keys: 11000
+[2025-11-06 18:34:52] Fetching data for operator 9 - RockX
+[2025-11-06 18:38:57] Successfully fetched data for operator 9
+[2025-11-06 18:38:57] Checkpoint saved: 39/39 operators completed
+[2025-11-06 18:38:57] ✓ Progress: 39/39 operators completed
+[2025-11-06 18:38:57] Data processing complete! Total operators: 39/39
+[2025-11-06 18:38:57] 
+================================================================================
+[2025-11-06 18:38:57] STEP 3: RUNNING ANALYSIS (WITH ALL DATA)
+[2025-11-06 18:38:57] ================================================================================
+[2025-11-06 18:38:57] Starting analysis for Kiln (with all data)
+[2025-11-06 18:38:57] Analysis complete for Kiln: 32 months analyzed
+[2025-11-06 18:38:57] Analysis DataFrame saved to: /home/runner/work/lido-performance-analysis/lido-performance-analysis/output/kiln_analysis.csv
+[2025-11-06 18:38:57] 
+Summary for Kiln (with all data):
+[2025-11-06 18:38:57]   total_months: 32
+[2025-11-06 18:38:57]   avg_rank: 10.46875
+[2025-11-06 18:38:57]   avg_percentile: 71.37067486205419
+[2025-11-06 18:38:57]   months_above_mean: 24
+[2025-11-06 18:38:57]   months_above_median: 26
+[2025-11-06 18:38:57]   avg_apr_diff_vs_mean_bps: 4.68058538960613
+[2025-11-06 18:38:57]   avg_apr_diff_vs_median_bps: 8.991499787726736
+[2025-11-06 18:38:57]   total_extra_rewards_vs_mean: 351.31512586446956
+[2025-11-06 18:38:57]   total_extra_rewards_vs_median: 644.4813944286013
+[2025-11-06 18:38:57]   total_extra_rewards_vs_top10_mean: -1178.5814108271322
+[2025-11-06 18:38:57]   total_extra_rewards_vs_top10_median: -440.02185353480405
+[2025-11-06 18:38:57]   start_date: 2023-01-01
+[2025-11-06 18:38:57]   end_date: 2025-08-31
+[2025-11-06 18:39:01] Plot saved to: /home/runner/work/lido-performance-analysis/lido-performance-analysis/output/kiln_performance_dashboard.png
+[2025-11-06 18:39:05] Heatmap saved to: /home/runner/work/lido-performance-analysis/lido-performance-analysis/output/operator_rankings_heatmap.png
+[2025-11-06 18:39:05] 
+================================================================================
+[2025-11-06 18:39:05] STEP 4: RUNNING ANALYSIS (NO OUTLIERS)
+[2025-11-06 18:39:05] ================================================================================
+[2025-11-06 18:39:05] Starting analysis for Kiln (outliers removed - > 2 std dev)
+[2025-11-06 18:39:05] Analysis complete: 32 months analyzed (outliers removed)
+[2025-11-06 18:39:05] Analysis DataFrame (no outliers) saved to: /home/runner/work/lido-performance-analysis/lido-performance-analysis/output/kiln_analysis_no_outliers.csv
+[2025-11-06 18:39:05] 
+Summary for Kiln (without outliers):
+[2025-11-06 18:39:05]   total_months: 32
+[2025-11-06 18:39:05]   avg_rank: 7.25
+[2025-11-06 18:39:05]   avg_percentile: 80.64949647923785
+[2025-11-06 18:39:05]   months_above_mean: 28
+[2025-11-06 18:39:05]   months_above_median: 29
+[2025-11-06 18:39:05]   avg_apr_diff_vs_mean_bps: 7.928925519638949
+[2025-11-06 18:39:05]   avg_apr_diff_vs_median_bps: 8.652247324410478
+[2025-11-06 18:39:05]   total_extra_rewards_vs_mean: 549.6683326048438
+[2025-11-06 18:39:05]   total_extra_rewards_vs_median: 597.2141446858792
+[2025-11-06 18:39:05]   total_extra_rewards_vs_top10_mean: -193.1586425938174
+[2025-11-06 18:39:05]   total_extra_rewards_vs_top10_median: -47.19281315794304
+[2025-11-06 18:39:05]   start_date: 2023-01-01
+[2025-11-06 18:39:05]   end_date: 2025-08-31
+[2025-11-06 18:39:05]   outliers_removed: True
+[2025-11-06 18:39:05]   outlier_threshold: > 2 standard deviations per operator per month
+[2025-11-06 18:39:08] Plot saved to: /home/runner/work/lido-performance-analysis/lido-performance-analysis/output/kiln_performance_dashboard_no_outliers.png
+[2025-11-06 18:39:12] Heatmap saved to: /home/runner/work/lido-performance-analysis/lido-performance-analysis/output/operator_rankings_heatmap_no_outliers.png
+[2025-11-06 18:39:12] 
+================================================================================
+[2025-11-06 18:39:12] STEP 5: COMPARISON SUMMARY
+[2025-11-06 18:39:12] ================================================================================
+[2025-11-06 18:39:12] 
+Comparison: With vs Without Outliers
+[2025-11-06 18:39:12] --------------------------------------------------
+[2025-11-06 18:39:12] Average Rank - All Data: 10.47
+[2025-11-06 18:39:12] Average Rank - No Outliers: 7.25
+[2025-11-06 18:39:12] Average Percentile - All Data: 71.37
+[2025-11-06 18:39:12] Average Percentile - No Outliers: 80.65
+[2025-11-06 18:39:12] Avg APR Diff vs Mean (bps) - All Data: 4.68
+[2025-11-06 18:39:12] Avg APR Diff vs Mean (bps) - No Outliers: 7.93
+[2025-11-06 18:39:12] Total Extra Rewards vs Mean - All Data: 351.32 ETH
+[2025-11-06 18:39:12] Total Extra Rewards vs Mean - No Outliers: 549.67 ETH
+[2025-11-06 18:39:12] 
+================================================================================
+[2025-11-06 18:39:12] ANALYSIS COMPLETE!
+[2025-11-06 18:39:12] ================================================================================
+[2025-11-06 18:39:12] 
+All results saved to: /home/runner/work/lido-performance-analysis/lido-performance-analysis/output
+[2025-11-06 18:39:12] Generated files:
+[2025-11-06 18:39:12]   - /home/runner/work/lido-performance-analysis/lido-performance-analysis/output/kiln_analysis.csv
+[2025-11-06 18:39:12]   - /home/runner/work/lido-performance-analysis/lido-performance-analysis/output/kiln_analysis_no_outliers.csv
+[2025-11-06 18:39:12]   - /home/runner/work/lido-performance-analysis/lido-performance-analysis/output/kiln_performance_dashboard.png
+[2025-11-06 18:39:12]   - /home/runner/work/lido-performance-analysis/lido-performance-analysis/output/kiln_performance_dashboard_no_outliers.png
+[2025-11-06 18:39:12]   - /home/runner/work/lido-performance-analysis/lido-performance-analysis/output/operator_rankings_heatmap.png
+[2025-11-06 18:39:12]   - /home/runner/work/lido-performance-analysis/lido-performance-analysis/output/operator_rankings_heatmap_no_outliers.png
