@@ -18,7 +18,7 @@ Key Features:
 - **Heatmap Export**: CSV file with monthly rankings and average ranks
 - Accurate balance tracking via /eth/stakes endpoint
 - Checkpointing for resume capability
-- Outlier detection using standard deviations
+- Outlier detection with configurable methods (absolute threshold or statistical)
 
 Requirements:
 - Python 3.8+
@@ -70,11 +70,19 @@ CONFIG = {
     # Set to list of operator IDs to filter analysis to specific operators
     # Example: ['0', '1', '2', '3'] - only analyze these operator IDs
     # Set to None or empty list to include all operators
-    'FILTER_OPERATOR_IDS': ['38','37','3','2','5','29','35','0'],  # None = analyze all operators
+    'FILTER_OPERATOR_IDS': ['38','37','3','2','5','29','35','0'], 
 
     # Analysis configuration
     'MIN_DAYS_PER_MONTH': 20,  # Minimum days of data required to include a month
-    'OUTLIER_STD_THRESHOLD': 2,  # Standard deviations above mean to consider as outlier
+
+    # Outlier detection configuration
+    # Filter based on EL rewards only - extreme MEV is the main outlier source
+    # Days with EL > threshold are removed from both EL and Total analysis
+    # CL analysis is never filtered (stable, predictable rewards)
+    'OUTLIER_METHOD': 'absolute',  # 'std' (mean + N*std) or 'absolute' (fixed ETH threshold)
+    'OUTLIER_STD_THRESHOLD': 2,  # For 'std' method: standard deviations above mean
+    'OUTLIER_ABSOLUTE_THRESHOLD_EL': 100,  # Remove days where EL rewards > 100 ETH (applies to EL and Total)
+
     'START_DATE': '2023-01-01',  # Start date for analysis
     'END_DATE': '2025-08-31',  # End date for analysis
 
@@ -159,7 +167,12 @@ def validate_config():
 # ============================================================================
 
 def fetch_lido_operators():
-    """Fetch all Lido node operators from TheGraph subgraph"""
+    """
+    Fetch Lido node operators from TheGraph subgraph.
+
+    Applies operator filtering if FILTER_OPERATOR_IDS is configured. Reference operator
+    is automatically included even if not in the filter list.
+    """
     log_message("Fetching operators from Lido subgraph...")
 
     operators_query = """{
@@ -231,7 +244,11 @@ def fetch_lido_operators():
 
 
 def fetch_operator_keys(operator_keys, checkpoint):
-    """Fetch validator keys for each operator"""
+    """
+    Fetch validator public keys for each operator from TheGraph subgraph.
+
+    Skips operators already in checkpoint. Fetches keys in batches of 1000.
+    """
     log_message("Fetching validator keys for each operator...")
 
     header = {
@@ -319,6 +336,9 @@ async def fetch_api_async(endpoint, key, session, semaphore):
 async def get_eth_stakes_async(keys_list, api_key, session, semaphore):
     """
     Fetch stake activation/exit data for validators to calculate accurate active balances.
+
+    Uses /eth/stakes endpoint to get delegated_at and exited_at timestamps. Calculates
+    cumulative balance (32 ETH per validator) for each day based on activations and exits.
     """
     batch_size = CONFIG['BATCH_SIZE']
     n = len(keys_list) // batch_size
@@ -407,8 +427,12 @@ async def get_eth_stakes_async(keys_list, api_key, session, semaphore):
 
 async def get_eth_rewards_daily_async_split(keys_list, api_key, session, semaphore):
     """
-    Async fetch of daily ETH rewards with CL/EL split.
-    Returns separate consensus_rewards and execution_rewards.
+    Fetch daily ETH rewards with CL/EL split from /eth/rewards endpoint.
+
+    Returns dict with keys as dates (YYYY-MM-DD) and values containing:
+    - cl_rewards: Consensus layer rewards (attestations, sync committee, proposals)
+    - el_rewards: Execution layer rewards (MEV, priority fees)
+    - total_rewards: Sum of CL + EL
     """
     batch_size = CONFIG['BATCH_SIZE']
     n = len(keys_list) // batch_size
@@ -469,7 +493,13 @@ async def get_eth_rewards_daily_async_split(keys_list, api_key, session, semapho
 
 
 async def process_operator_async(operator_id, operator_data, api_key, session, semaphore):
-    """Process a single operator's rewards (CL/EL split) and accurate balances"""
+    """
+    Process a single operator: fetch rewards (CL/EL split) and stake balances in parallel.
+
+    Returns dict with dates as keys and values containing:
+    - cl_rewards, el_rewards, total_rewards
+    - balance (accurate active stake from /eth/stakes endpoint)
+    """
     try:
         log_message(f"Fetching data for operator {operator_id} - {operator_data['name']}")
 
@@ -525,7 +555,12 @@ async def process_operator_async(operator_id, operator_data, api_key, session, s
 
 
 def process_all_operators(operator_keys, api_key, checkpoint, existing_results):
-    """Process operators sequentially with async batch fetching for each operator"""
+    """
+    Process all operators sequentially with async batch fetching within each operator.
+
+    Each operator's data is fetched with concurrent API calls (up to MAX_CONCURRENT_REQUESTS),
+    then saved before moving to the next operator. This provides resume capability via checkpoints.
+    """
     daily_rewards_operator = existing_results.copy()
 
     operators_to_process = [op_id for op_id in operator_keys.keys()
@@ -585,12 +620,17 @@ def analyse_operator_performance(reward_type='total', remove_outliers=False):
     """
     Analyze reference operator's performance vs other Lido node operators.
 
+    Filtering logic:
+    - CL rewards: Never filtered (stable, predictable consensus rewards)
+    - EL rewards: Days with EL > threshold are removed
+    - Total rewards: Same days as EL filtered (based on EL component only)
+
     Args:
-        reward_type: 'cl', 'el', or 'total'
-        remove_outliers: If True, remove outliers > N std deviations
+        reward_type: 'cl', 'el', or 'total' - which reward component to analyze
+        remove_outliers: If True, apply outlier filtering based on CONFIG['OUTLIER_METHOD']
 
     Returns:
-        dict: Analysis results including APR comparisons, rankings, and DataFrame
+        dict: Analysis results including APR comparisons, rankings, DataFrame, and removed outliers
     """
     ref_operator = CONFIG['REFERENCE_OPERATOR']
     outlier_suffix = " (no outliers)" if remove_outliers else ""
@@ -599,7 +639,9 @@ def analyse_operator_performance(reward_type='total', remove_outliers=False):
     with open(RESULTS_FILE, 'r') as f:
         lido_results_raw = json.load(f)
 
-    # Apply operator filtering if configured (same logic as data fetching)
+    # Apply operator filtering if configured
+    # This is a dual-filtering approach: operators are filtered during both data fetching and analysis
+    # This allows changing the filter without deleting checkpoints
     filter_ids = CONFIG.get('FILTER_OPERATOR_IDS')
     if filter_ids:
         # Find reference operator ID
@@ -637,48 +679,91 @@ def analyse_operator_performance(reward_type='total', remove_outliers=False):
     # Remove outliers if requested
     removed_outliers = []
     if remove_outliers:
-        lido_results = {}
-        for operator_id, operator_data in lido_results_filtered.items():
-            lido_results[operator_id] = {
-                'name': operator_data['name'],
-                'keys': operator_data.get('keys', []),
-                'rewards': {}
-            }
+        outlier_method = CONFIG.get('OUTLIER_METHOD', 'std')
 
-            # Group by month
-            monthly_rewards = {}
-            reward_field = f'{reward_type}_rewards'
-            for date, rewards_data in operator_data['rewards'].items():
-                month = date[:7]
-                if month not in monthly_rewards:
-                    monthly_rewards[month] = []
-                monthly_rewards[month].append((date, rewards_data.get(reward_field, 0)))
+        # For CL: Never filter (stable rewards)
+        if reward_type == 'cl':
+            log_message("CL analysis: No filtering applied (stable consensus rewards)")
+            lido_results = lido_results_filtered
+        else:
+            # For EL and Total: Filter based on EL rewards only
+            lido_results = {}
 
-            # Calculate mean/std and filter outliers for each month
-            for month, date_reward_list in monthly_rewards.items():
-                rewards_values = [r for d, r in date_reward_list if r > 0]
+            for operator_id, operator_data in lido_results_filtered.items():
+                lido_results[operator_id] = {
+                    'name': operator_data['name'],
+                    'keys': operator_data.get('keys', []),
+                    'rewards': {}
+                }
 
-                if len(rewards_values) > 0:
-                    mean_reward = np.mean(rewards_values)
-                    std_reward = np.std(rewards_values)
-                    threshold = mean_reward + (CONFIG['OUTLIER_STD_THRESHOLD'] * std_reward)
+                # Group by month for statistics calculation
+                # Store tuples of (date, analyzed_reward, el_reward) to enable EL-based filtering
+                monthly_rewards = {}
+                reward_field = f'{reward_type}_rewards'
+                for date, rewards_data in operator_data['rewards'].items():
+                    month = date[:7]
+                    if month not in monthly_rewards:
+                        monthly_rewards[month] = []
+                    monthly_rewards[month].append((date, rewards_data.get(reward_field, 0), rewards_data.get('el_rewards', 0)))
 
-                    for date, reward in date_reward_list:
-                        if reward <= threshold:
-                            lido_results[operator_id]['rewards'][date] = operator_data['rewards'][date]
-                        else:
-                            # Track removed outlier
-                            removed_outliers.append({
-                                'operator_id': operator_id,
-                                'operator_name': operator_data['name'],
-                                'date': date,
-                                'month': month,
-                                'reward_value': reward,
-                                'month_mean': mean_reward,
-                                'month_std': std_reward,
-                                'threshold': threshold,
-                                'std_above_mean': (reward - mean_reward) / std_reward if std_reward > 0 else 0
-                            })
+                # Filter based on EL rewards
+                for month, date_reward_el_list in monthly_rewards.items():
+                    rewards_values = [r for d, r, el in date_reward_el_list if r > 0]
+                    el_rewards_values = [el for d, r, el in date_reward_el_list if el > 0]
+
+                    if len(rewards_values) > 0 and len(el_rewards_values) > 0:
+                        # Calculate statistics for the reward type we're analyzing
+                        mean_reward = np.mean(rewards_values)
+                        std_reward = np.std(rewards_values)
+                        median_reward = np.median(rewards_values)
+
+                        # Calculate statistics for EL rewards (used for filtering)
+                        mean_el = np.mean(el_rewards_values)
+                        std_el = np.std(el_rewards_values)
+
+                        # Determine threshold based on method
+                        if outlier_method == 'absolute':
+                            threshold = CONFIG.get('OUTLIER_ABSOLUTE_THRESHOLD_EL', 100)
+                        else:  # 'std' method
+                            std_multiplier = CONFIG.get('OUTLIER_STD_THRESHOLD', 2)
+                            threshold = mean_el + (std_multiplier * std_el)
+
+                        for date, reward, el_reward in date_reward_el_list:
+                            # Filter based on EL rewards, not the analyzed reward type
+                            if el_reward <= threshold:
+                                lido_results[operator_id]['rewards'][date] = operator_data['rewards'][date]
+                            else:
+                                # Get balance for this date
+                                balance = operator_data['rewards'][date].get('balance', 0)
+
+                                # Calculate percentile and rank
+                                percentile = (sum(1 for r in rewards_values if r <= reward) / len(rewards_values)) * 100
+                                sorted_rewards = sorted(rewards_values, reverse=True)
+                                rank_in_month = sorted_rewards.index(reward) + 1
+
+                                # Track removed outlier with context
+                                outlier_entry = {
+                                    'operator_id': operator_id,
+                                    'operator_name': operator_data['name'],
+                                    'date': date,
+                                    'month': month,
+                                    'reward_value': reward,
+                                    'el_reward_value': el_reward,  # EL component that triggered the filter
+                                    'balance': balance,
+                                    'days_in_month': len(rewards_values),
+                                    'rank_in_month': rank_in_month,
+                                    'percentile': percentile,
+                                    'month_mean': mean_reward,
+                                    'month_median': median_reward,
+                                    'month_std': std_reward,
+                                    'threshold': threshold,
+                                    'outlier_method': f'{outlier_method}_el_based',
+                                    'above_threshold_eth': el_reward - threshold,
+                                    'above_threshold_pct': ((el_reward - threshold) / threshold * 100) if threshold > 0 else 0,
+                                    'std_above_mean': (reward - mean_reward) / std_reward if std_reward > 0 else 0
+                                }
+
+                                removed_outliers.append(outlier_entry)
     else:
         lido_results = lido_results_filtered
 
@@ -874,7 +959,8 @@ def analyse_operator_performance(reward_type='total', remove_outliers=False):
 
     log_message(f"Analysis complete: {len(ref_analysis)} months analyzed")
     if remove_outliers:
-        log_message(f"Removed {len(removed_outliers)} outlier data points")
+        outlier_method = CONFIG.get('OUTLIER_METHOD', 'std')
+        log_message(f"Removed {len(removed_outliers)} outlier data points using '{outlier_method}' method")
 
     return {
         'reward_type': reward_type,
@@ -901,13 +987,16 @@ def analyse_operator_performance(reward_type='total', remove_outliers=False):
     }
 
 
-def export_removed_outliers(removed_outliers_list, reward_type='total'):
+def export_removed_outliers(removed_outliers_list, reward_type='total', output_path=None):
     """
-    Export list of removed outliers to CSV.
+    Export list of removed outliers to CSV with comprehensive context.
+
+    Includes 26 columns with statistics, thresholds, percentiles, and context for each filtered day.
 
     Args:
-        removed_outliers_list: List of removed outlier dictionaries
-        reward_type: 'cl', 'el', or 'total'
+        removed_outliers_list: List of removed outlier dictionaries from analysis
+        reward_type: 'cl', 'el', or 'total' - reward component being analyzed
+        output_path: Optional custom output path (if None, uses default based on reward_type and method)
     """
     if not removed_outliers_list:
         log_message(f"No outliers were removed for {reward_type.upper()} analysis")
@@ -919,16 +1008,37 @@ def export_removed_outliers(removed_outliers_list, reward_type='total'):
     # Sort by date and operator
     df = df.sort_values(['date', 'operator_name'])
 
+    # Round numeric columns for readability
+    numeric_cols = [
+        'reward_value', 'el_reward_value', 'balance', 'percentile',
+        'month_mean', 'month_median', 'month_std',
+        'threshold', 'above_threshold_eth', 'above_threshold_pct',
+        'std_above_mean'
+    ]
+    for col in numeric_cols:
+        if col in df.columns:
+            df[col] = df[col].round(4)
+
     # Reorder columns for better readability
     column_order = [
         'date', 'month', 'operator_name', 'operator_id',
-        'reward_value', 'month_mean', 'month_std', 'threshold', 'std_above_mean'
+        'reward_value', 'el_reward_value', 'balance', 'rank_in_month', 'percentile',
+        'threshold', 'above_threshold_eth', 'above_threshold_pct',
+        'outlier_method',
+        'month_mean', 'month_median', 'month_std',
+        'std_above_mean', 'days_in_month'
     ]
+    # Filter to only columns that exist
+    column_order = [col for col in column_order if col in df.columns]
     df = df[column_order]
 
-    # Generate filename
-    filename = f'removed_outliers_{reward_type}.csv'
-    filepath = os.path.join(OUTPUT_DIR, filename)
+    # Use provided path or generate default
+    if output_path:
+        filepath = output_path
+    else:
+        outlier_method = CONFIG.get('OUTLIER_METHOD', 'std')
+        filename = f'removed_outliers_{reward_type}_{outlier_method}.csv'
+        filepath = os.path.join(OUTPUT_DIR, filename)
 
     # Save to CSV
     df.to_csv(filepath, index=False)
@@ -937,14 +1047,18 @@ def export_removed_outliers(removed_outliers_list, reward_type='total'):
     return filepath
 
 
-def export_heatmap_rankings(monthly_operator_rankings, reward_type='total', remove_outliers=False):
+def export_heatmap_rankings(monthly_operator_rankings, reward_type='total', remove_outliers=False, output_path=None):
     """
-    Export heatmap rankings to CSV with monthly ranks and average rank.
+    Export operator rankings to CSV showing performance over time.
+
+    Creates a CSV with columns: Operator, Average Rank, Best Rank, Worst Rank, Months Active,
+    and individual monthly rank columns (Rank_YYYY-MM).
 
     Args:
-        monthly_operator_rankings: Dict from analyse_operator_performance()
-        reward_type: 'cl', 'el', or 'total'
-        remove_outliers: If True, adds suffix to filename
+        monthly_operator_rankings: Dict from analyse_operator_performance() containing monthly rankings
+        reward_type: 'cl', 'el', or 'total' - reward component being analyzed
+        remove_outliers: If True, indicates this is a filtered analysis
+        output_path: Optional custom output path (if None, uses default location)
     """
     # Calculate average rank for each operator
     operator_all_ranks = {}
@@ -983,11 +1097,14 @@ def export_heatmap_rankings(monthly_operator_rankings, reward_type='total', remo
     # Create DataFrame
     df = pd.DataFrame(csv_data)
 
-    # Generate filename
-    ref_operator_clean = CONFIG['REFERENCE_OPERATOR'].lower().replace(' ', '_')
-    outlier_suffix = '_no_outliers' if remove_outliers else ''
-    filename = f'operator_rankings_{reward_type}{outlier_suffix}.csv'
-    filepath = os.path.join(OUTPUT_DIR, filename)
+    # Use provided path or generate default
+    if output_path:
+        filepath = output_path
+    else:
+        ref_operator_clean = CONFIG['REFERENCE_OPERATOR'].lower().replace(' ', '_')
+        outlier_suffix = '_no_outliers' if remove_outliers else ''
+        filename = f'operator_rankings_{reward_type}{outlier_suffix}.csv'
+        filepath = os.path.join(OUTPUT_DIR, filename)
 
     # Save to CSV
     df.to_csv(filepath, index=False)
@@ -998,16 +1115,19 @@ def export_heatmap_rankings(monthly_operator_rankings, reward_type='total', remo
 
 def plot_operator_rankings_heatmap(monthly_operator_rankings, reward_type='total', remove_outliers=False, save_path=None):
     """
-    Create a heatmap showing ALL operator rankings over time, ordered by average rank.
+    Create a heatmap visualization showing all operator rankings over time.
+
+    Operators are ordered by their average rank (best to worst). Reference operator
+    is highlighted with a blue border. Color scale: green (rank 1) to red (worst rank).
 
     Args:
-        monthly_operator_rankings: Dict from analyse_operator_performance()
-        reward_type: 'cl', 'el', or 'total'
-        remove_outliers: If True, adds suffix to title
-        save_path: Optional path to save the figure
+        monthly_operator_rankings: Dict from analyse_operator_performance() containing monthly rankings
+        reward_type: 'cl', 'el', or 'total' - reward component being analyzed
+        remove_outliers: If True, updates title to indicate filtering was applied
+        save_path: Optional path to save the figure as PNG
 
     Returns:
-        matplotlib figure object
+        matplotlib figure object (or None if saved and closed)
     """
     import matplotlib.pyplot as plt
     import seaborn as sns
@@ -1065,7 +1185,19 @@ def plot_operator_rankings_heatmap(monthly_operator_rankings, reward_type='total
         ax.add_patch(plt.Rectangle((0, ref_idx), len(months), 1,
                                    fill=False, edgecolor='blue', linewidth=3))
 
-    outlier_suffix = " (No Outliers)" if remove_outliers else ""
+    if remove_outliers:
+        if reward_type == 'cl':
+            outlier_suffix = " (No filtering)"
+        else:
+            outlier_method = CONFIG.get('OUTLIER_METHOD', 'std')
+            if outlier_method == 'absolute':
+                threshold_val = CONFIG.get('OUTLIER_ABSOLUTE_THRESHOLD_EL', 100)
+                outlier_suffix = f" (Days with EL >{threshold_val} ETH removed)"
+            else:  # 'std' method
+                std_threshold = CONFIG.get('OUTLIER_STD_THRESHOLD', 2)
+                outlier_suffix = f" (EL outliers >{std_threshold}σ removed)"
+    else:
+        outlier_suffix = ""
     ax.set_title(f'{reward_type.upper()} Operator Rankings Over Time{outlier_suffix}\n({num_operators} operators, ordered by avg rank)',
                 fontsize=14, fontweight='bold', pad=20)
     ax.set_xlabel('Month', fontsize=12, fontweight='bold')
@@ -1088,61 +1220,111 @@ def plot_operator_rankings_heatmap(monthly_operator_rankings, reward_type='total
 
 def plot_operator_performance(df, reward_type='total', remove_outliers=False, save_path=None):
     """
-    Create basic performance visualization.
+    Create a 3x2 performance dashboard showing reference operator vs network.
+
+    Left column: Mean benchmarks (APR, Difference, Cumulative)
+    Right column: Median benchmarks (APR, Difference, Cumulative)
+
+    Args:
+        df: DataFrame from analyse_operator_performance()['monthly_dataframe']
+        reward_type: 'cl', 'el', or 'total' - reward component being analyzed
+        remove_outliers: If True, updates title to indicate filtering was applied
+        save_path: Optional path to save the figure as PNG
+
+    Returns:
+        matplotlib figure object
     """
     import matplotlib.pyplot as plt
     import matplotlib.dates as mdates
 
     ref_operator = CONFIG['REFERENCE_OPERATOR']
-    outlier_suffix = " (No Outliers)" if remove_outliers else ""
+    if remove_outliers:
+        if reward_type == 'cl':
+            outlier_suffix = " (No filtering)"
+        else:
+            outlier_method = CONFIG.get('OUTLIER_METHOD', 'std')
+            if outlier_method == 'absolute':
+                threshold_val = CONFIG.get('OUTLIER_ABSOLUTE_THRESHOLD_EL', 100)
+                outlier_suffix = f" (Days with EL >{threshold_val} ETH removed)"
+            else:  # 'std' method
+                std_threshold = CONFIG.get('OUTLIER_STD_THRESHOLD', 2)
+                outlier_suffix = f" (EL outliers >{std_threshold}σ removed)"
+    else:
+        outlier_suffix = ""
 
     df = df.copy()
     df['Date'] = pd.to_datetime(df['Month'] + '-01')
 
-    fig, axes = plt.subplots(2, 2, figsize=(16, 12))
+    fig, axes = plt.subplots(3, 2, figsize=(16, 16))
     fig.suptitle(f'{ref_operator} {reward_type.upper()} Performance{outlier_suffix}',
                  fontsize=16, fontweight='bold')
 
-    # APR comparison
+    # ===== LEFT COLUMN: MEAN BENCHMARKS =====
+
+    # APR comparison vs Mean
     ax = axes[0, 0]
-    ax.plot(df['Date'], df[f'{ref_operator} APR (%)'], marker='o', label=ref_operator, linewidth=2)
-    ax.plot(df['Date'], df['Network Mean APR (%)'], marker='s', label='Network Mean', linestyle='--')
-    ax.plot(df['Date'], df['Network Median APR (%)'], marker='^', label='Network Median', linestyle='--')
+    ax.plot(df['Date'], df[f'{ref_operator} APR (%)'], marker='o', label=ref_operator, linewidth=2, color='#FF6B35')
+    ax.plot(df['Date'], df['Network Mean APR (%)'], marker='s', label='Network Mean', linestyle='--', color='#004E89')
     ax.set_ylabel('APR (%)', fontweight='bold')
-    ax.set_title('APR Comparison')
+    ax.set_title('APR Comparison vs Mean', fontweight='bold')
     ax.legend()
     ax.grid(True, alpha=0.3)
     ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
     plt.setp(ax.xaxis.get_majorticklabels(), rotation=45, ha='right')
 
-    # Ranking
-    ax = axes[0, 1]
-    ax.plot(df['Date'], df[f'{ref_operator} Rank'], marker='o', linewidth=2, color='#2E86AB')
-    ax.invert_yaxis()
-    ax.set_ylabel('Rank (lower is better)', fontweight='bold')
-    ax.set_title('Ranking Over Time')
-    ax.grid(True, alpha=0.3)
-    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
-    plt.setp(ax.xaxis.get_majorticklabels(), rotation=45, ha='right')
-
-    # APR Difference
+    # APR Difference vs Mean
     ax = axes[1, 0]
-    colors = ['green' if d > 0 else 'red' for d in df['Diff vs Mean (bps)']]
-    ax.bar(df['Date'], df['Diff vs Mean (bps)'], color=colors, alpha=0.7, width=20)
+    colors_mean = ['green' if d > 0 else 'red' for d in df['Diff vs Mean (bps)']]
+    ax.bar(df['Date'], df['Diff vs Mean (bps)'], color=colors_mean, alpha=0.7, width=20)
     ax.axhline(y=0, color='black', linestyle='-', linewidth=0.8)
     ax.set_ylabel('Basis Points', fontweight='bold')
-    ax.set_title('APR Difference vs Network Mean')
+    ax.set_title('APR Difference vs Mean', fontweight='bold')
     ax.grid(True, alpha=0.3, axis='y')
     ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
     plt.setp(ax.xaxis.get_majorticklabels(), rotation=45, ha='right')
 
-    # Cumulative Extra Rewards
-    ax = axes[1, 1]
-    cumulative = df['Extra Rewards vs Mean (ETH)'].cumsum()
-    ax.fill_between(df['Date'], 0, cumulative, alpha=0.3)
-    ax.plot(df['Date'], cumulative, marker='o', linewidth=2)
+    # Cumulative Extra Rewards vs Mean
+    ax = axes[2, 0]
+    cumulative_mean = df['Extra Rewards vs Mean (ETH)'].cumsum()
+    ax.fill_between(df['Date'], 0, cumulative_mean, alpha=0.3, color='#004E89')
+    ax.plot(df['Date'], cumulative_mean, marker='o', linewidth=2, color='#004E89')
     ax.set_ylabel('Cumulative ETH', fontweight='bold')
-    ax.set_title('Cumulative Extra Rewards vs Mean')
+    ax.set_title('Cumulative Extra Rewards vs Mean', fontweight='bold')
+    ax.grid(True, alpha=0.3)
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
+    plt.setp(ax.xaxis.get_majorticklabels(), rotation=45, ha='right')
+
+    # ===== RIGHT COLUMN: MEDIAN BENCHMARKS =====
+
+    # APR comparison vs Median
+    ax = axes[0, 1]
+    ax.plot(df['Date'], df[f'{ref_operator} APR (%)'], marker='o', label=ref_operator, linewidth=2, color='#FF6B35')
+    ax.plot(df['Date'], df['Network Median APR (%)'], marker='^', label='Network Median', linestyle='--', color='#00A878')
+    ax.set_ylabel('APR (%)', fontweight='bold')
+    ax.set_title('APR Comparison vs Median', fontweight='bold')
+    ax.legend()
+    ax.grid(True, alpha=0.3)
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
+    plt.setp(ax.xaxis.get_majorticklabels(), rotation=45, ha='right')
+
+    # APR Difference vs Median
+    ax = axes[1, 1]
+    colors_median = ['green' if d > 0 else 'red' for d in df['Diff vs Median (bps)']]
+    ax.bar(df['Date'], df['Diff vs Median (bps)'], color=colors_median, alpha=0.7, width=20)
+    ax.axhline(y=0, color='black', linestyle='-', linewidth=0.8)
+    ax.set_ylabel('Basis Points', fontweight='bold')
+    ax.set_title('APR Difference vs Median', fontweight='bold')
+    ax.grid(True, alpha=0.3, axis='y')
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
+    plt.setp(ax.xaxis.get_majorticklabels(), rotation=45, ha='right')
+
+    # Cumulative Extra Rewards vs Median
+    ax = axes[2, 1]
+    cumulative_median = df['Extra Rewards vs Median (ETH)'].cumsum()
+    ax.fill_between(df['Date'], 0, cumulative_median, alpha=0.3, color='#00A878')
+    ax.plot(df['Date'], cumulative_median, marker='s', linewidth=2, color='#00A878')
+    ax.set_ylabel('Cumulative ETH', fontweight='bold')
+    ax.set_title('Cumulative Extra Rewards vs Median', fontweight='bold')
     ax.grid(True, alpha=0.3)
     ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
     plt.setp(ax.xaxis.get_majorticklabels(), rotation=45, ha='right')
@@ -1161,7 +1343,15 @@ def plot_operator_performance(df, reward_type='total', remove_outliers=False, sa
 # ============================================================================
 
 def main():
-    """Main execution function"""
+    """
+    Main execution function: fetch data, run analyses, generate visualizations.
+
+    Process:
+    1. Validate configuration (API keys, etc.)
+    2. Fetch operator data from TheGraph and rewards from Kiln API (with resume capability)
+    3. Run 6 analyses: CL/EL/Total, each with and without outlier filtering
+    4. Generate CSV reports, heatmaps, and performance plots organized by filtering method
+    """
     log_message("="*80)
     log_message("STARTING LIDO DETAILED PERFORMANCE ANALYSIS (CL/EL SPLIT)")
     log_message("="*80)
@@ -1223,10 +1413,23 @@ def main():
 
     for reward_type in reward_types:
         for remove_outliers in [False, True]:
-            outlier_suffix = '_no_outliers' if remove_outliers else ''
+            # Determine output subdirectory based on filtering method
+            if remove_outliers:
+                outlier_method = CONFIG.get('OUTLIER_METHOD', 'std')
+                output_subdir = os.path.join(OUTPUT_DIR, outlier_method)
+                outlier_suffix = f'_no_outliers'
+                outlier_label = f' (NO OUTLIERS - {outlier_method.upper()} METHOD)'
+            else:
+                output_subdir = os.path.join(OUTPUT_DIR, 'no_filtering')
+                outlier_suffix = ''
+                outlier_label = ''
+
+            # Create subdirectory if it doesn't exist
+            os.makedirs(output_subdir, exist_ok=True)
 
             log_message("\n" + "="*80)
-            log_message(f"ANALYZING {reward_type.upper()} REWARDS{' (NO OUTLIERS)' if remove_outliers else ''}")
+            log_message(f"ANALYZING {reward_type.upper()} REWARDS{outlier_label}")
+            log_message(f"Output directory: {output_subdir}")
             log_message("="*80)
 
             # Run analysis
@@ -1234,27 +1437,33 @@ def main():
 
             # Save CSV
             csv_filename = f'{ref_operator_clean}_{reward_type}_analysis{outlier_suffix}.csv'
-            csv_path = os.path.join(OUTPUT_DIR, csv_filename)
+            csv_path = os.path.join(output_subdir, csv_filename)
             analysis['monthly_dataframe'].to_csv(csv_path, index=False)
             log_message(f"Analysis saved to: {csv_path}")
 
             # Export heatmap rankings CSV
+            heatmap_csv_filename = f'operator_rankings_{reward_type}{outlier_suffix}.csv'
+            heatmap_csv_path = os.path.join(output_subdir, heatmap_csv_filename)
             export_heatmap_rankings(
                 analysis['monthly_operator_rankings'],
                 reward_type=reward_type,
-                remove_outliers=remove_outliers
+                remove_outliers=remove_outliers,
+                output_path=heatmap_csv_path
             )
 
             # Export removed outliers list (only when outliers were removed)
             if remove_outliers and analysis['removed_outliers']:
+                outliers_csv_filename = f'removed_outliers_{reward_type}.csv'
+                outliers_csv_path = os.path.join(output_subdir, outliers_csv_filename)
                 export_removed_outliers(
                     analysis['removed_outliers'],
-                    reward_type=reward_type
+                    reward_type=reward_type,
+                    output_path=outliers_csv_path
                 )
 
             # Generate heatmap PNG
             heatmap_filename = f'operator_rankings_{reward_type}_heatmap{outlier_suffix}.png'
-            heatmap_path = os.path.join(OUTPUT_DIR, heatmap_filename)
+            heatmap_path = os.path.join(output_subdir, heatmap_filename)
             plot_operator_rankings_heatmap(
                 analysis['monthly_operator_rankings'],
                 reward_type=reward_type,
@@ -1264,7 +1473,7 @@ def main():
 
             # Generate performance plot
             plot_filename = f'{ref_operator_clean}_{reward_type}_performance{outlier_suffix}.png'
-            plot_path = os.path.join(OUTPUT_DIR, plot_filename)
+            plot_path = os.path.join(output_subdir, plot_filename)
             plot_operator_performance(
                 analysis['monthly_dataframe'],
                 reward_type=reward_type,

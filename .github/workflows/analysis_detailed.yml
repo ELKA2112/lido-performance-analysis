@@ -55,12 +55,9 @@ jobs:
       run: |
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
-        git add output/*_cl_*.csv output/*_cl_*.png || true
-        git add output/*_el_*.csv output/*_el_*.png || true
-        git add output/*_total_*.csv output/*_total_*.png || true
-        git add output/operator_rankings_*.csv || true
-        git add output/operator_rankings_*_heatmap*.png || true
-        git add output/removed_outliers_*.csv || true
+        git add output/absolute/ || true
+        git add output/std/ || true
+        git add output/no_filtering/ || true
         git add output/lido_*_detailed.* || true
         git diff --staged --quiet || git commit -m "[BOT] Update Lido detailed analysis results (CL/EL split)"
         git push || echo "No changes to push"

@@ -853,3 +853,85 @@ All results saved to: /home/runner/work/lido-performance-analysis/lido-performan
 [2025-11-06 18:39:12]   - /home/runner/work/lido-performance-analysis/lido-performance-analysis/output/kiln_performance_dashboard_no_outliers.png
 [2025-11-06 18:39:12]   - /home/runner/work/lido-performance-analysis/lido-performance-analysis/output/operator_rankings_heatmap.png
 [2025-11-06 18:39:12]   - /home/runner/work/lido-performance-analysis/lido-performance-analysis/output/operator_rankings_heatmap_no_outliers.png
+[2025-11-12 17:10:48] ================================================================================
+[2025-11-12 17:10:48] STARTING LIDO PERFORMANCE ANALYSIS
+[2025-11-12 17:10:48] ================================================================================
+[2025-11-12 17:10:48] Data already fetched and processed. Skipping to analysis.
+[2025-11-12 17:10:48] 
+================================================================================
+[2025-11-12 17:10:48] STEP 3: RUNNING ANALYSIS (WITH ALL DATA)
+[2025-11-12 17:10:48] ================================================================================
+[2025-11-12 17:10:48] Starting analysis for Kiln (with all data)
+[2025-11-12 17:10:49] Analysis complete for Kiln: 32 months analyzed
+[2025-11-12 17:10:49] Analysis DataFrame saved to: /Users/mehdielkacemy/lido-performance-analysis/output/kiln_analysis.csv
+[2025-11-12 17:10:49] 
+Summary for Kiln (with all data):
+[2025-11-12 17:10:49]   total_months: 32
+[2025-11-12 17:10:49]   avg_rank: 10.46875
+[2025-11-12 17:10:49]   avg_percentile: 71.37067486205419
+[2025-11-12 17:10:49]   months_above_mean: 24
+[2025-11-12 17:10:49]   months_above_median: 26
+[2025-11-12 17:10:49]   avg_apr_diff_vs_mean_bps: 4.680585389606129
+[2025-11-12 17:10:49]   avg_apr_diff_vs_median_bps: 8.991499787726736
+[2025-11-12 17:10:49]   total_extra_rewards_vs_mean: 351.3151258644697
+[2025-11-12 17:10:49]   total_extra_rewards_vs_median: 644.4813944286013
+[2025-11-12 17:10:49]   total_extra_rewards_vs_top10_mean: -1178.5814108271322
+[2025-11-12 17:10:49]   total_extra_rewards_vs_top10_median: -440.02185353480405
+[2025-11-12 17:10:49]   start_date: 2023-01-01
+[2025-11-12 17:10:49]   end_date: 2025-08-31
+[2025-11-12 17:10:50] Plot saved to: /Users/mehdielkacemy/lido-performance-analysis/output/kiln_performance_dashboard.png
+[2025-11-12 17:10:53] Heatmap saved to: /Users/mehdielkacemy/lido-performance-analysis/output/operator_rankings_heatmap.png
+[2025-11-12 17:10:53] 
+================================================================================
+[2025-11-12 17:10:53] STEP 4: RUNNING ANALYSIS (NO OUTLIERS)
+[2025-11-12 17:10:53] ================================================================================
+[2025-11-12 17:10:53] Starting analysis for Kiln (outliers removed - > 2 std dev)
+[2025-11-12 17:10:53] Analysis complete: 32 months analyzed (outliers removed)
+[2025-11-12 17:10:53] Analysis DataFrame (no outliers) saved to: /Users/mehdielkacemy/lido-performance-analysis/output/kiln_analysis_no_outliers.csv
+[2025-11-12 17:10:53] 
+Summary for Kiln (without outliers):
+[2025-11-12 17:10:53]   total_months: 32
+[2025-11-12 17:10:53]   avg_rank: 7.25
+[2025-11-12 17:10:53]   avg_percentile: 80.64949647923785
+[2025-11-12 17:10:53]   months_above_mean: 28
+[2025-11-12 17:10:53]   months_above_median: 29
+[2025-11-12 17:10:53]   avg_apr_diff_vs_mean_bps: 7.928925519638944
+[2025-11-12 17:10:53]   avg_apr_diff_vs_median_bps: 8.652247324410478
+[2025-11-12 17:10:53]   total_extra_rewards_vs_mean: 549.6683326048434
+[2025-11-12 17:10:53]   total_extra_rewards_vs_median: 597.2141446858792
+[2025-11-12 17:10:53]   total_extra_rewards_vs_top10_mean: -193.1586425938174
+[2025-11-12 17:10:53]   total_extra_rewards_vs_top10_median: -47.19281315794304
+[2025-11-12 17:10:53]   start_date: 2023-01-01
+[2025-11-12 17:10:53]   end_date: 2025-08-31
+[2025-11-12 17:10:53]   outliers_removed: True
+[2025-11-12 17:10:53]   outlier_threshold: > 2 standard deviations per operator per month
+[2025-11-12 17:10:54] Plot saved to: /Users/mehdielkacemy/lido-performance-analysis/output/kiln_performance_dashboard_no_outliers.png
+[2025-11-12 17:10:55] Heatmap saved to: /Users/mehdielkacemy/lido-performance-analysis/output/operator_rankings_heatmap_no_outliers.png
+[2025-11-12 17:10:55] 
+================================================================================
+[2025-11-12 17:10:55] STEP 5: COMPARISON SUMMARY
+[2025-11-12 17:10:55] ================================================================================
+[2025-11-12 17:10:55] 
+Comparison: With vs Without Outliers
+[2025-11-12 17:10:55] --------------------------------------------------
+[2025-11-12 17:10:55] Average Rank - All Data: 10.47
+[2025-11-12 17:10:55] Average Rank - No Outliers: 7.25
+[2025-11-12 17:10:55] Average Percentile - All Data: 71.37
+[2025-11-12 17:10:55] Average Percentile - No Outliers: 80.65
+[2025-11-12 17:10:55] Avg APR Diff vs Mean (bps) - All Data: 4.68
+[2025-11-12 17:10:55] Avg APR Diff vs Mean (bps) - No Outliers: 7.93
+[2025-11-12 17:10:55] Total Extra Rewards vs Mean - All Data: 351.32 ETH
+[2025-11-12 17:10:55] Total Extra Rewards vs Mean - No Outliers: 549.67 ETH
+[2025-11-12 17:10:55] 
+================================================================================
+[2025-11-12 17:10:55] ANALYSIS COMPLETE!
+[2025-11-12 17:10:55] ================================================================================
+[2025-11-12 17:10:55] 
+All results saved to: /Users/mehdielkacemy/lido-performance-analysis/output
+[2025-11-12 17:10:55] Generated files:
+[2025-11-12 17:10:55]   - /Users/mehdielkacemy/lido-performance-analysis/output/kiln_analysis.csv
+[2025-11-12 17:10:55]   - /Users/mehdielkacemy/lido-performance-analysis/output/kiln_analysis_no_outliers.csv
+[2025-11-12 17:10:55]   - /Users/mehdielkacemy/lido-performance-analysis/output/kiln_performance_dashboard.png
+[2025-11-12 17:10:55]   - /Users/mehdielkacemy/lido-performance-analysis/output/kiln_performance_dashboard_no_outliers.png
+[2025-11-12 17:10:55]   - /Users/mehdielkacemy/lido-performance-analysis/output/operator_rankings_heatmap.png
+[2025-11-12 17:10:55]   - /Users/mehdielkacemy/lido-performance-analysis/output/operator_rankings_heatmap_no_outliers.png
