@@ -1,0 +1,151 @@
+[2025-11-12 13:43:19] ================================================================================
+[2025-11-12 13:43:19] STARTING LIDO DETAILED PERFORMANCE ANALYSIS (CL/EL SPLIT)
+[2025-11-12 13:43:19] ================================================================================
+[2025-11-12 13:43:19] Operator filtering ENABLED: 8 operators
+[2025-11-12 13:43:19] 
+================================================================================
+[2025-11-12 13:43:19] STEP 1: FETCHING LIDO DATA
+[2025-11-12 13:43:19] ================================================================================
+[2025-11-12 13:43:19] Fetching operators from Lido subgraph...
+[2025-11-12 13:43:19] Retrieved 39 operators from subgraph
+[2025-11-12 13:43:19] Auto-including reference operator 'Kiln' (ID: 8) in filter list
+[2025-11-12 13:43:19] Filtered to 9 operators (including reference operator)
+[2025-11-12 13:43:19] Checkpoint saved: 0/9 operators completed
+[2025-11-12 13:43:19] Fetching validator keys for each operator...
+[2025-11-12 13:43:19] Processing operator 0 - Staking Facilities
+[2025-11-12 13:43:19]   Retrieved 1000 keys at offset 0
+[2025-11-12 13:43:19]   Retrieved 1000 keys at offset 1000
+[2025-11-12 13:43:19]   Retrieved 1000 keys at offset 2000
+[2025-11-12 13:43:20]   Retrieved 1000 keys at offset 3000
+[2025-11-12 13:43:20]   Retrieved 1000 keys at offset 4000
+[2025-11-12 13:43:20]   Retrieved 1000 keys at offset 5000
+[2025-11-12 13:43:21]   Retrieved 1000 keys at offset 6000
+[2025-11-12 13:43:21]   Retrieved 1000 keys at offset 7000
+[2025-11-12 13:43:22]   Retrieved 1000 keys at offset 8000
+[2025-11-12 13:43:22]   Retrieved 1000 keys at offset 9000
+[2025-11-12 13:43:22]   Retrieved 400 keys at offset 10000
+[2025-11-12 13:43:22]   Total keys for operator 0: 10400
+[2025-11-12 13:43:22] Processing operator 2 - P2P.org
+[2025-11-12 13:43:23]   Retrieved 1000 keys at offset 0
+[2025-11-12 13:43:23]   Retrieved 1000 keys at offset 1000
+[2025-11-12 13:43:23]   Retrieved 1000 keys at offset 2000
+[2025-11-12 13:43:23]   Retrieved 1000 keys at offset 3000
+[2025-11-12 13:43:24]   Retrieved 1000 keys at offset 4000
+[2025-11-12 13:43:24]   Retrieved 1000 keys at offset 5000
+[2025-11-12 13:43:24]   Retrieved 1000 keys at offset 6000
+[2025-11-12 13:43:25]   Retrieved 1000 keys at offset 7000
+[2025-11-12 13:43:25]   Retrieved 1000 keys at offset 8000
+[2025-11-12 13:43:25]   Retrieved 1000 keys at offset 9000
+[2025-11-12 13:43:25]   Retrieved 1000 keys at offset 10000
+[2025-11-12 13:43:25]   Retrieved 1000 keys at offset 11000
+[2025-11-12 13:43:26]   Retrieved 1000 keys at offset 12000
+[2025-11-12 13:43:26]   Total keys for operator 2: 13000
+[2025-11-12 13:43:26] Processing operator 29 - Attestant (BVI) Limited
+[2025-11-12 13:43:26]   Retrieved 1000 keys at offset 0
+[2025-11-12 13:43:26]   Retrieved 1000 keys at offset 1000
+[2025-11-12 13:43:27]   Retrieved 1000 keys at offset 2000
+[2025-11-12 13:43:27]   Retrieved 1000 keys at offset 3000
+[2025-11-12 13:43:27]   Retrieved 1000 keys at offset 4000
+[2025-11-12 13:43:27]   Retrieved 1000 keys at offset 5000
+[2025-11-12 13:43:28]   Retrieved 1000 keys at offset 6000
+[2025-11-12 13:43:28]   Retrieved 1000 keys at offset 7000
+[2025-11-12 13:43:28]   Retrieved 1000 keys at offset 8000
+[2025-11-12 13:43:29]   Retrieved 1000 keys at offset 9000
+[2025-11-12 13:43:29]   Retrieved 1000 keys at offset 10000
+[2025-11-12 13:43:30]   Retrieved 1000 keys at offset 11000
+[2025-11-12 13:43:30]   Retrieved 1000 keys at offset 12000
+[2025-11-12 13:43:30]   Total keys for operator 29: 13000
+[2025-11-12 13:43:30] Processing operator 3 - Chorus One
+[2025-11-12 13:43:30]   Retrieved 1000 keys at offset 0
+[2025-11-12 13:43:31]   Retrieved 1000 keys at offset 1000
+[2025-11-12 13:43:31]   Retrieved 1000 keys at offset 2000
+[2025-11-12 13:43:31]   Retrieved 1000 keys at offset 3000
+[2025-11-12 13:43:31]   Retrieved 1000 keys at offset 4000
+[2025-11-12 13:43:31]   Retrieved 1000 keys at offset 5000
+[2025-11-12 13:43:32]   Retrieved 1000 keys at offset 6000
+[2025-11-12 13:43:32]   Retrieved 1000 keys at offset 7000
+[2025-11-12 13:43:32]   Retrieved 1000 keys at offset 8000
+[2025-11-12 13:43:32]   Retrieved 1000 keys at offset 9000
+[2025-11-12 13:43:32]   Retrieved 1000 keys at offset 10000
+[2025-11-12 13:43:33]   Retrieved 1000 keys at offset 11000
+[2025-11-12 13:43:33]   Total keys for operator 3: 12000
+[2025-11-12 13:43:33] Processing operator 35 - Gateway.fm AS
+[2025-11-12 13:43:33]   Retrieved 1000 keys at offset 0
+[2025-11-12 13:43:33]   Retrieved 1000 keys at offset 1000
+[2025-11-12 13:43:34]   Retrieved 1000 keys at offset 2000
+[2025-11-12 13:43:34]   Retrieved 1000 keys at offset 3000
+[2025-11-12 13:43:34]   Retrieved 1000 keys at offset 4000
+[2025-11-12 13:43:34]   Retrieved 1000 keys at offset 5000
+[2025-11-12 13:43:34]   Retrieved 1000 keys at offset 6000
+[2025-11-12 13:43:35]   Retrieved 1000 keys at offset 7000
+[2025-11-12 13:43:35]   Retrieved 1000 keys at offset 8000
+[2025-11-12 13:43:35]   Retrieved 1000 keys at offset 9000
+[2025-11-12 13:43:35]   Retrieved 1000 keys at offset 10000
+[2025-11-12 13:43:36]   Retrieved 1000 keys at offset 11000
+[2025-11-12 13:43:36]   Retrieved 300 keys at offset 12000
+[2025-11-12 13:43:36]   Total keys for operator 35: 12300
+[2025-11-12 13:43:36] Processing operator 37 - ParaFi Technologies LLC
+[2025-11-12 13:43:36]   Retrieved 1000 keys at offset 0
+[2025-11-12 13:43:36]   Retrieved 1000 keys at offset 1000
+[2025-11-12 13:43:37]   Retrieved 1000 keys at offset 2000
+[2025-11-12 13:43:37]   Retrieved 1000 keys at offset 3000
+[2025-11-12 13:43:37]   Retrieved 1000 keys at offset 4000
+[2025-11-12 13:43:37]   Retrieved 1000 keys at offset 5000
+[2025-11-12 13:43:37]   Retrieved 1000 keys at offset 6000
+[2025-11-12 13:43:38]   Retrieved 1000 keys at offset 7000
+[2025-11-12 13:43:38]   Retrieved 1000 keys at offset 8000
+[2025-11-12 13:43:38]   Retrieved 1000 keys at offset 9000
+[2025-11-12 13:43:39]   Retrieved 1000 keys at offset 10000
+[2025-11-12 13:43:39]   Retrieved 1000 keys at offset 11000
+[2025-11-12 13:43:39]   Total keys for operator 37: 12000
+[2025-11-12 13:43:39] Processing operator 38 - RockawayX Infra
+[2025-11-12 13:43:39]   Retrieved 1000 keys at offset 0
+[2025-11-12 13:43:40]   Retrieved 1000 keys at offset 1000
+[2025-11-12 13:43:40]   Retrieved 1000 keys at offset 2000
+[2025-11-12 13:43:40]   Retrieved 1000 keys at offset 3000
+[2025-11-12 13:43:40]   Retrieved 1000 keys at offset 4000
+[2025-11-12 13:43:40]   Retrieved 1000 keys at offset 5000
+[2025-11-12 13:43:41]   Retrieved 1000 keys at offset 6000
+[2025-11-12 13:43:41]   Retrieved 1000 keys at offset 7000
+[2025-11-12 13:43:41]   Retrieved 1000 keys at offset 8000
+[2025-11-12 13:43:41]   Retrieved 1000 keys at offset 9000
+[2025-11-12 13:43:41]   Total keys for operator 38: 10000
+[2025-11-12 13:43:41] Processing operator 5 - Blockscape
+[2025-11-12 13:43:42]   Retrieved 1000 keys at offset 0
+[2025-11-12 13:43:42]   Retrieved 1000 keys at offset 1000
+[2025-11-12 13:43:42]   Retrieved 1000 keys at offset 2000
+[2025-11-12 13:43:42]   Retrieved 1000 keys at offset 3000
+[2025-11-12 13:43:43]   Retrieved 1000 keys at offset 4000
+[2025-11-12 13:43:43]   Retrieved 1000 keys at offset 5000
+[2025-11-12 13:43:43]   Retrieved 1000 keys at offset 6000
+[2025-11-12 13:43:43]   Retrieved 1000 keys at offset 7000
+[2025-11-12 13:43:43]   Retrieved 1000 keys at offset 8000
+[2025-11-12 13:43:44]   Retrieved 1000 keys at offset 9000
+[2025-11-12 13:43:44]   Retrieved 1000 keys at offset 10000
+[2025-11-12 13:43:44]   Retrieved 1000 keys at offset 11000
+[2025-11-12 13:43:44]   Retrieved 1000 keys at offset 12000
+[2025-11-12 13:43:44]   Total keys for operator 5: 13000
+[2025-11-12 13:43:44] Processing operator 8 - Kiln
+[2025-11-12 13:43:45]   Retrieved 1000 keys at offset 0
+[2025-11-12 13:43:45]   Retrieved 1000 keys at offset 1000
+[2025-11-12 13:43:45]   Retrieved 1000 keys at offset 2000
+[2025-11-12 13:43:46]   Retrieved 1000 keys at offset 3000
+[2025-11-12 13:43:46]   Retrieved 1000 keys at offset 4000
+[2025-11-12 13:43:46]   Retrieved 1000 keys at offset 5000
+[2025-11-12 13:43:46]   Retrieved 1000 keys at offset 6000
+[2025-11-12 13:43:46]   Retrieved 1000 keys at offset 7000
+[2025-11-12 13:43:47]   Retrieved 1000 keys at offset 8000
+[2025-11-12 13:43:47]   Retrieved 1000 keys at offset 9000
+[2025-11-12 13:43:47]   Retrieved 1000 keys at offset 10000
+[2025-11-12 13:43:47]   Total keys for operator 8: 11000
+[2025-11-12 13:43:47] All operators and their keys retrieved
+[2025-11-12 13:43:47] 
+================================================================================
+[2025-11-12 13:43:47] STEP 2: PROCESSING OPERATOR REWARDS (CL/EL SPLIT)
+[2025-11-12 13:43:47] ================================================================================
+[2025-11-12 13:43:47] Processing 9 operators sequentially (out of 9 total)
+[2025-11-12 13:43:47] Each operator will fetch batches with max 10 concurrent API calls
+[2025-11-12 13:43:47] Fetching CL/EL split rewards and accurate balance tracking
+[2025-11-12 13:43:47] ===== Operator 1/9: 0 - Staking Facilities =====
+[2025-11-12 13:43:47]   Validator keys: 10400
+[2025-11-12 13:43:47] Fetching data for operator 0 - Staking Facilities
