@@ -599,12 +599,27 @@ def analyse_operator_performance(reward_type='total', remove_outliers=False):
     with open(RESULTS_FILE, 'r') as f:
         lido_results_raw = json.load(f)
 
-    # Apply operator filtering if configured
+    # Apply operator filtering if configured (same logic as data fetching)
     filter_ids = CONFIG.get('FILTER_OPERATOR_IDS')
     if filter_ids:
-        log_message(f"Filtering to {len(filter_ids)} specified operator IDs: {filter_ids}")
-        lido_results_raw = {op_id: data for op_id, data in lido_results_raw.items() if op_id in filter_ids}
+        # Find reference operator ID
+        ref_operator_id = None
+        for op_id, op_data in lido_results_raw.items():
+            if op_data['name'] == ref_operator:
+                ref_operator_id = op_id
+                break
+
+        # Auto-include reference operator if not in filter list
+        filter_ids_set = set(filter_ids)
+        if ref_operator_id and ref_operator_id not in filter_ids_set:
+            log_message(f"Auto-including reference operator '{ref_operator}' (ID: {ref_operator_id}) in analysis")
+            filter_ids_set.add(ref_operator_id)
+
+        # Filter to specified operators only
+        lido_results_raw = {op_id: data for op_id, data in lido_results_raw.items() if op_id in filter_ids_set}
         log_message(f"Analyzing {len(lido_results_raw)} operators after filtering")
+    else:
+        log_message(f"Analyzing all {len(lido_results_raw)} operators from results file")
 
     # Filter to date range
     lido_results_filtered = {}
@@ -620,6 +635,7 @@ def analyse_operator_performance(reward_type='total', remove_outliers=False):
         }
 
     # Remove outliers if requested
+    removed_outliers = []
     if remove_outliers:
         lido_results = {}
         for operator_id, operator_data in lido_results_filtered.items():
@@ -650,6 +666,19 @@ def analyse_operator_performance(reward_type='total', remove_outliers=False):
                     for date, reward in date_reward_list:
                         if reward <= threshold:
                             lido_results[operator_id]['rewards'][date] = operator_data['rewards'][date]
+                        else:
+                            # Track removed outlier
+                            removed_outliers.append({
+                                'operator_id': operator_id,
+                                'operator_name': operator_data['name'],
+                                'date': date,
+                                'month': month,
+                                'reward_value': reward,
+                                'month_mean': mean_reward,
+                                'month_std': std_reward,
+                                'threshold': threshold,
+                                'std_above_mean': (reward - mean_reward) / std_reward if std_reward > 0 else 0
+                            })
     else:
         lido_results = lido_results_filtered
 
@@ -844,6 +873,8 @@ def analyse_operator_performance(reward_type='total', remove_outliers=False):
     df_monthly = pd.DataFrame(df_data)
 
     log_message(f"Analysis complete: {len(ref_analysis)} months analyzed")
+    if remove_outliers:
+        log_message(f"Removed {len(removed_outliers)} outlier data points")
 
     return {
         'reward_type': reward_type,
@@ -851,6 +882,7 @@ def analyse_operator_performance(reward_type='total', remove_outliers=False):
         'network_metrics': network_metrics,
         'monthly_dataframe': df_monthly,
         'monthly_operator_rankings': monthly_operator_rankings,
+        'removed_outliers': removed_outliers,
         'summary': {
             'total_months': len(ref_analysis),
             'avg_rank': np.mean([m['ref_rank'] for m in ref_analysis.values()]) if ref_analysis else 0,
@@ -863,9 +895,46 @@ def analyse_operator_performance(reward_type='total', remove_outliers=False):
             'total_extra_rewards_vs_median': total_extra_rewards_vs_median,
             'start_date': CONFIG['START_DATE'],
             'end_date': CONFIG['END_DATE'],
-            'outliers_removed': remove_outliers
+            'outliers_removed': remove_outliers,
+            'outliers_count': len(removed_outliers)
         }
     }
+
+
+def export_removed_outliers(removed_outliers_list, reward_type='total'):
+    """
+    Export list of removed outliers to CSV.
+
+    Args:
+        removed_outliers_list: List of removed outlier dictionaries
+        reward_type: 'cl', 'el', or 'total'
+    """
+    if not removed_outliers_list:
+        log_message(f"No outliers were removed for {reward_type.upper()} analysis")
+        return None
+
+    # Create DataFrame
+    df = pd.DataFrame(removed_outliers_list)
+
+    # Sort by date and operator
+    df = df.sort_values(['date', 'operator_name'])
+
+    # Reorder columns for better readability
+    column_order = [
+        'date', 'month', 'operator_name', 'operator_id',
+        'reward_value', 'month_mean', 'month_std', 'threshold', 'std_above_mean'
+    ]
+    df = df[column_order]
+
+    # Generate filename
+    filename = f'removed_outliers_{reward_type}.csv'
+    filepath = os.path.join(OUTPUT_DIR, filename)
+
+    # Save to CSV
+    df.to_csv(filepath, index=False)
+    log_message(f"Removed outliers exported to: {filepath} ({len(removed_outliers_list)} data points)")
+
+    return filepath
 
 
 def export_heatmap_rankings(monthly_operator_rankings, reward_type='total', remove_outliers=False):
@@ -927,8 +996,94 @@ def export_heatmap_rankings(monthly_operator_rankings, reward_type='total', remo
     return filepath
 
 
+def plot_operator_rankings_heatmap(monthly_operator_rankings, reward_type='total', remove_outliers=False, save_path=None):
+    """
+    Create a heatmap showing ALL operator rankings over time, ordered by average rank.
+
+    Args:
+        monthly_operator_rankings: Dict from analyse_operator_performance()
+        reward_type: 'cl', 'el', or 'total'
+        remove_outliers: If True, adds suffix to title
+        save_path: Optional path to save the figure
+
+    Returns:
+        matplotlib figure object
+    """
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+
+    # Get all unique operators and calculate their average rank
+    operator_avg_ranks = {}
+    operator_all_ranks = {}
+
+    for month, rankings in monthly_operator_rankings.items():
+        for op_data in rankings:
+            op_name = op_data['operator']
+            if op_name not in operator_all_ranks:
+                operator_all_ranks[op_name] = []
+            operator_all_ranks[op_name].append(op_data['rank'])
+
+    # Calculate average rank for each operator
+    for op_name, ranks in operator_all_ranks.items():
+        operator_avg_ranks[op_name] = np.mean(ranks)
+
+    # Sort operators by their average rank (best to worst)
+    sorted_operators = sorted(operator_avg_ranks.keys(), key=lambda x: operator_avg_ranks[x])
+
+    # Create matrix: operators x months
+    months = sorted(monthly_operator_rankings.keys())
+    data = []
+
+    for operator in sorted_operators:
+        row = []
+        for month in months:
+            # Find this operator's rank in this month
+            op_data = next((op for op in monthly_operator_rankings[month] if op['operator'] == operator), None)
+            if op_data:
+                row.append(op_data['rank'])
+            else:
+                row.append(None)  # Operator didn't exist this month
+        data.append(row)
+
+    # Create DataFrame
+    df_heatmap = pd.DataFrame(data, index=sorted_operators, columns=months)
+
+    # Create figure - size dynamically based on number of operators and months
+    num_operators = len(sorted_operators)
+    fig, ax = plt.subplots(figsize=(max(12, len(months) * 0.8), max(10, num_operators * 0.4)))
+
+    # Create heatmap
+    sns.heatmap(df_heatmap, annot=True, fmt='.0f', cmap='RdYlGn_r',
+                cbar_kws={'label': 'Rank (lower is better)'},
+                linewidths=0.5, linecolor='gray', ax=ax,
+                vmin=1, vmax=num_operators)
+
+    # Highlight reference operator row if present
+    ref_operator = CONFIG['REFERENCE_OPERATOR']
+    if ref_operator in sorted_operators:
+        ref_idx = sorted_operators.index(ref_operator)
+        ax.add_patch(plt.Rectangle((0, ref_idx), len(months), 1,
+                                   fill=False, edgecolor='blue', linewidth=3))
+
+    outlier_suffix = " (No Outliers)" if remove_outliers else ""
+    ax.set_title(f'{reward_type.upper()} Operator Rankings Over Time{outlier_suffix}\n({num_operators} operators, ordered by avg rank)',
+                fontsize=14, fontweight='bold', pad=20)
+    ax.set_xlabel('Month', fontsize=12, fontweight='bold')
+    ax.set_ylabel(f'Operator ({ref_operator} highlighted in blue)', fontsize=12, fontweight='bold')
+    plt.setp(ax.xaxis.get_majorticklabels(), rotation=45, ha='right')
+
+    plt.tight_layout()
+
+    if save_path:
+        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+        plt.close()
+        log_message(f"Heatmap saved to: {save_path}")
+
+    return fig
+
+
 # ============================================================================
-# VISUALIZATION FUNCTIONS (simplified for now - can be expanded)
+# VISUALIZATION FUNCTIONS
 # ============================================================================
 
 def plot_operator_performance(df, reward_type='total', remove_outliers=False, save_path=None):
@@ -1083,14 +1238,31 @@ def main():
             analysis['monthly_dataframe'].to_csv(csv_path, index=False)
             log_message(f"Analysis saved to: {csv_path}")
 
-            # Export heatmap rankings
+            # Export heatmap rankings CSV
             export_heatmap_rankings(
                 analysis['monthly_operator_rankings'],
                 reward_type=reward_type,
                 remove_outliers=remove_outliers
             )
 
-            # Generate plot
+            # Export removed outliers list (only when outliers were removed)
+            if remove_outliers and analysis['removed_outliers']:
+                export_removed_outliers(
+                    analysis['removed_outliers'],
+                    reward_type=reward_type
+                )
+
+            # Generate heatmap PNG
+            heatmap_filename = f'operator_rankings_{reward_type}_heatmap{outlier_suffix}.png'
+            heatmap_path = os.path.join(OUTPUT_DIR, heatmap_filename)
+            plot_operator_rankings_heatmap(
+                analysis['monthly_operator_rankings'],
+                reward_type=reward_type,
+                remove_outliers=remove_outliers,
+                save_path=heatmap_path
+            )
+
+            # Generate performance plot
             plot_filename = f'{ref_operator_clean}_{reward_type}_performance{outlier_suffix}.png'
             plot_path = os.path.join(OUTPUT_DIR, plot_filename)
             plot_operator_performance(

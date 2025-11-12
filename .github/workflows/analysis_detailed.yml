@@ -59,6 +59,8 @@ jobs:
         git add output/*_el_*.csv output/*_el_*.png || true
         git add output/*_total_*.csv output/*_total_*.png || true
         git add output/operator_rankings_*.csv || true
+        git add output/operator_rankings_*_heatmap*.png || true
+        git add output/removed_outliers_*.csv || true
         git add output/lido_*_detailed.* || true
         git diff --staged --quiet || git commit -m "[BOT] Update Lido detailed analysis results (CL/EL split)"
         git push || echo "No changes to push"
@@ -79,6 +81,8 @@ jobs:
           output/*_el_*.png
           output/*_total_*.png
           output/operator_rankings_*.csv
+          output/operator_rankings_*_heatmap*.png
+          output/removed_outliers_*.csv
         retention-days: 30
 
     - name: Display summary
