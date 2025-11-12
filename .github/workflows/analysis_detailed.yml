@@ -1,0 +1,98 @@
+name: Lido Detailed Performance Analysis (CL/EL Split)
+
+on:
+  # Run manually via workflow_dispatch
+  workflow_dispatch:
+    inputs:
+      filter_operator_ids:
+        description: 'Comma-separated operator IDs to filter (optional, leave empty for all)'
+        required: false
+        default: ''
+
+jobs:
+  run_detailed_analysis:
+    runs-on: ubuntu-latest
+    timeout-minutes: 720  # 12 hours max
+
+    # Grant write permissions to push results back to repo
+    permissions:
+      contents: write
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Configure operator filtering
+      if: ${{ github.event.inputs.filter_operator_ids != '' }}
+      run: |
+        # Update CONFIG in script with operator IDs
+        IDS="${{ github.event.inputs.filter_operator_ids }}"
+        echo "Filtering to operator IDs: $IDS"
+        # Convert comma-separated string to Python list format
+        PYTHON_LIST=$(echo "$IDS" | sed "s/,/', '/g" | sed "s/^/['/" | sed "s/$/']/" )
+        echo "Python list format: $PYTHON_LIST"
+        # Update the script config (simple sed replacement)
+        sed -i "s/'FILTER_OPERATOR_IDS': None/'FILTER_OPERATOR_IDS': $PYTHON_LIST/" scripts/lido_perf_analysis_detailed.py
+
+    - name: Run Lido Detailed Performance Analysis
+      env:
+        KILN_API_KEY: ${{ secrets.KILN_API_KEY }}
+        THEGRAPH_API_KEY: ${{ secrets.THEGRAPH_API_KEY }}
+      run: |
+        python scripts/lido_perf_analysis_detailed.py
+
+    - name: Commit and push results
+      if: always()
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git add output/absolute/ || true
+        git add output/std/ || true
+        git add output/no_filtering/ || true
+        git add output/lido_*_detailed.* || true
+        git diff --staged --quiet || git commit -m "[BOT] Update Lido detailed analysis results (CL/EL split)"
+        git push || echo "No changes to push"
+
+    - name: Upload results as artifact
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: lido-detailed-analysis-results
+        path: |
+          output/lido_processing_detailed.log
+          output/lido_checkpoint_detailed.json
+          output/lido_results_detailed.json
+          output/*_cl_*.csv
+          output/*_el_*.csv
+          output/*_total_*.csv
+          output/*_cl_*.png
+          output/*_el_*.png
+          output/*_total_*.png
+          output/operator_rankings_*.csv
+          output/operator_rankings_*_heatmap*.png
+          output/removed_outliers_*.csv
+        retention-days: 30
+
+    - name: Display summary
+      if: always()
+      run: |
+        if [ -f output/lido_checkpoint_detailed.json ]; then
+          echo "=== Checkpoint Status ==="
+          cat output/lido_checkpoint_detailed.json | python3 -m json.tool
+        fi
+        if [ -f output/lido_processing_detailed.log ]; then
+          echo "=== Last 50 log lines ==="
+          tail -50 output/lido_processing_detailed.log
+        fi
+        echo ""
+        echo "=== Generated Files ==="
+        ls -lh output/*_cl_* output/*_el_* output/*_total_* output/operator_rankings_* 2>/dev/null || echo "No analysis files generated yet"
