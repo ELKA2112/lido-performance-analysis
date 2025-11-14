@@ -70,7 +70,7 @@ CONFIG = {
     # Set to list of operator IDs to filter analysis to specific operators
     # Example: ['0', '1', '2', '3'] - only analyze these operator IDs
     # Set to None or empty list to include all operators
-    'FILTER_OPERATOR_IDS': ['38','37','3','2','5','29','35','0'], 
+    'FILTER_OPERATOR_IDS': ['38','37','3','2','5','35','0'], 
 
     # Analysis configuration
     'MIN_DAYS_PER_MONTH': 20,  # Minimum days of data required to include a month

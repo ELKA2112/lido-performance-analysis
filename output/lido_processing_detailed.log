@@ -2749,3 +2749,196 @@ Summary for Kiln (TOTAL - No Outliers):
 [2025-11-12 17:30:38] ================================================================================
 [2025-11-12 17:30:38] 
 All results saved to: /Users/mehdielkacemy/lido-performance-analysis/output
+[2025-11-14 10:44:05] ================================================================================
+[2025-11-14 10:44:05] STARTING LIDO DETAILED PERFORMANCE ANALYSIS (CL/EL SPLIT)
+[2025-11-14 10:44:05] ================================================================================
+[2025-11-14 10:44:05] Configuration errors:
+[2025-11-14 10:44:05]   - KILN_API_KEY is not set. Please set it in the CONFIG dictionary or as an environment variable.
+[2025-11-14 10:44:05]   - THEGRAPH_API_KEY is not set. Please set it in the CONFIG dictionary or as an environment variable.
+[2025-11-14 10:44:05] 
+Please set the required API keys and try again.
+[2025-11-14 11:18:41] ================================================================================
+[2025-11-14 11:18:41] STARTING LIDO DETAILED PERFORMANCE ANALYSIS (CL/EL SPLIT)
+[2025-11-14 11:18:41] ================================================================================
+[2025-11-14 11:18:41] Operator filtering ENABLED: 7 operators
+[2025-11-14 11:18:42] Data already fetched and processed. Skipping to analysis.
+[2025-11-14 11:18:42] 
+================================================================================
+[2025-11-14 11:18:42] ANALYZING CL REWARDS
+[2025-11-14 11:18:42] Output directory: /Users/mehdielkacemy/lido-performance-analysis/output/no_filtering
+[2025-11-14 11:18:42] ================================================================================
+[2025-11-14 11:18:42] Starting CL analysis for Kiln
+[2025-11-14 11:18:42] Auto-including reference operator 'Kiln' (ID: 8) in analysis
+[2025-11-14 11:18:42] Analyzing 8 operators after filtering
+[2025-11-14 11:18:42] Analysis complete: 32 months analyzed
+[2025-11-14 11:18:42] Analysis saved to: /Users/mehdielkacemy/lido-performance-analysis/output/no_filtering/kiln_cl_analysis.csv
+[2025-11-14 11:18:42] Heatmap rankings exported to: /Users/mehdielkacemy/lido-performance-analysis/output/no_filtering/operator_rankings_cl.csv
+[2025-11-14 11:18:44] Heatmap saved to: /Users/mehdielkacemy/lido-performance-analysis/output/no_filtering/operator_rankings_cl_heatmap.png
+[2025-11-14 11:18:45] Plot saved to: /Users/mehdielkacemy/lido-performance-analysis/output/no_filtering/kiln_cl_performance.png
+[2025-11-14 11:18:45] 
+Summary for Kiln (CL):
+[2025-11-14 11:18:45]   total_months: 32
+[2025-11-14 11:18:45]   avg_rank: 4.0625
+[2025-11-14 11:18:45]   avg_percentile: 55.859375
+[2025-11-14 11:18:45]   months_above_mean: 16
+[2025-11-14 11:18:45]   months_above_median: 15
+[2025-11-14 11:18:45]   avg_apr_diff_vs_mean_bps: 0.001545446141647866
+[2025-11-14 11:18:45]   avg_apr_diff_vs_median_bps: 0.004471497711146688
+[2025-11-14 11:18:45]   total_extra_rewards_vs_mean: -0.7267091116246107
+[2025-11-14 11:18:45]   total_extra_rewards_vs_median: 0.8396399634550213
+[2025-11-14 11:18:45]   start_date: 2023-01-01
+[2025-11-14 11:18:45]   end_date: 2025-08-31
+[2025-11-14 11:18:45]   outliers_removed: False
+[2025-11-14 11:18:45]   outliers_count: 0
+[2025-11-14 11:18:45] 
+================================================================================
+[2025-11-14 11:18:45] ANALYZING CL REWARDS (NO OUTLIERS - ABSOLUTE METHOD)
+[2025-11-14 11:18:45] Output directory: /Users/mehdielkacemy/lido-performance-analysis/output/absolute
+[2025-11-14 11:18:45] ================================================================================
+[2025-11-14 11:18:45] Starting CL analysis for Kiln (no outliers)
+[2025-11-14 11:18:45] Auto-including reference operator 'Kiln' (ID: 8) in analysis
+[2025-11-14 11:18:45] Analyzing 8 operators after filtering
+[2025-11-14 11:18:45] CL analysis: No filtering applied (stable consensus rewards)
+[2025-11-14 11:18:45] Analysis complete: 32 months analyzed
+[2025-11-14 11:18:45] Removed 0 outlier data points using 'absolute' method
+[2025-11-14 11:18:45] Analysis saved to: /Users/mehdielkacemy/lido-performance-analysis/output/absolute/kiln_cl_analysis_no_outliers.csv
+[2025-11-14 11:18:45] Heatmap rankings exported to: /Users/mehdielkacemy/lido-performance-analysis/output/absolute/operator_rankings_cl_no_outliers.csv
+[2025-11-14 11:18:45] Heatmap saved to: /Users/mehdielkacemy/lido-performance-analysis/output/absolute/operator_rankings_cl_heatmap_no_outliers.png
+[2025-11-14 11:18:46] Plot saved to: /Users/mehdielkacemy/lido-performance-analysis/output/absolute/kiln_cl_performance_no_outliers.png
+[2025-11-14 11:18:46] 
+Summary for Kiln (CL - No Outliers):
+[2025-11-14 11:18:46]   total_months: 32
+[2025-11-14 11:18:46]   avg_rank: 4.0625
+[2025-11-14 11:18:46]   avg_percentile: 55.859375
+[2025-11-14 11:18:46]   months_above_mean: 16
+[2025-11-14 11:18:46]   months_above_median: 15
+[2025-11-14 11:18:46]   avg_apr_diff_vs_mean_bps: 0.001545446141647866
+[2025-11-14 11:18:46]   avg_apr_diff_vs_median_bps: 0.004471497711146688
+[2025-11-14 11:18:46]   total_extra_rewards_vs_mean: -0.7267091116246107
+[2025-11-14 11:18:46]   total_extra_rewards_vs_median: 0.8396399634550213
+[2025-11-14 11:18:46]   start_date: 2023-01-01
+[2025-11-14 11:18:46]   end_date: 2025-08-31
+[2025-11-14 11:18:46]   outliers_removed: True
+[2025-11-14 11:18:46]   outliers_count: 0
+[2025-11-14 11:18:46] 
+================================================================================
+[2025-11-14 11:18:46] ANALYZING EL REWARDS
+[2025-11-14 11:18:46] Output directory: /Users/mehdielkacemy/lido-performance-analysis/output/no_filtering
+[2025-11-14 11:18:46] ================================================================================
+[2025-11-14 11:18:46] Starting EL analysis for Kiln
+[2025-11-14 11:18:46] Auto-including reference operator 'Kiln' (ID: 8) in analysis
+[2025-11-14 11:18:46] Analyzing 8 operators after filtering
+[2025-11-14 11:18:46] Analysis complete: 32 months analyzed
+[2025-11-14 11:18:46] Analysis saved to: /Users/mehdielkacemy/lido-performance-analysis/output/no_filtering/kiln_el_analysis.csv
+[2025-11-14 11:18:46] Heatmap rankings exported to: /Users/mehdielkacemy/lido-performance-analysis/output/no_filtering/operator_rankings_el.csv
+[2025-11-14 11:18:47] Heatmap saved to: /Users/mehdielkacemy/lido-performance-analysis/output/no_filtering/operator_rankings_el_heatmap.png
+[2025-11-14 11:18:47] Plot saved to: /Users/mehdielkacemy/lido-performance-analysis/output/no_filtering/kiln_el_performance.png
+[2025-11-14 11:18:47] 
+Summary for Kiln (EL):
+[2025-11-14 11:18:47]   total_months: 32
+[2025-11-14 11:18:47]   avg_rank: 3.1875
+[2025-11-14 11:18:47]   avg_percentile: 67.03125
+[2025-11-14 11:18:47]   months_above_mean: 20
+[2025-11-14 11:18:47]   months_above_median: 22
+[2025-11-14 11:18:47]   avg_apr_diff_vs_mean_bps: -3.359884529088741
+[2025-11-14 11:18:47]   avg_apr_diff_vs_median_bps: 3.7857615988007614
+[2025-11-14 11:18:47]   total_extra_rewards_vs_mean: -192.06526119981945
+[2025-11-14 11:18:47]   total_extra_rewards_vs_median: 292.35814272625686
+[2025-11-14 11:18:47]   start_date: 2023-01-01
+[2025-11-14 11:18:47]   end_date: 2025-08-31
+[2025-11-14 11:18:47]   outliers_removed: False
+[2025-11-14 11:18:47]   outliers_count: 0
+[2025-11-14 11:18:47] 
+================================================================================
+[2025-11-14 11:18:47] ANALYZING EL REWARDS (NO OUTLIERS - ABSOLUTE METHOD)
+[2025-11-14 11:18:47] Output directory: /Users/mehdielkacemy/lido-performance-analysis/output/absolute
+[2025-11-14 11:18:47] ================================================================================
+[2025-11-14 11:18:47] Starting EL analysis for Kiln (no outliers)
+[2025-11-14 11:18:48] Auto-including reference operator 'Kiln' (ID: 8) in analysis
+[2025-11-14 11:18:48] Analyzing 8 operators after filtering
+[2025-11-14 11:18:48] Analysis complete: 32 months analyzed
+[2025-11-14 11:18:48] Removed 10 outlier data points using 'absolute' method
+[2025-11-14 11:18:48] Analysis saved to: /Users/mehdielkacemy/lido-performance-analysis/output/absolute/kiln_el_analysis_no_outliers.csv
+[2025-11-14 11:18:48] Heatmap rankings exported to: /Users/mehdielkacemy/lido-performance-analysis/output/absolute/operator_rankings_el_no_outliers.csv
+[2025-11-14 11:18:48] Removed outliers exported to: /Users/mehdielkacemy/lido-performance-analysis/output/absolute/removed_outliers_el.csv (10 data points)
+[2025-11-14 11:18:48] Heatmap saved to: /Users/mehdielkacemy/lido-performance-analysis/output/absolute/operator_rankings_el_heatmap_no_outliers.png
+[2025-11-14 11:18:49] Plot saved to: /Users/mehdielkacemy/lido-performance-analysis/output/absolute/kiln_el_performance_no_outliers.png
+[2025-11-14 11:18:49] 
+Summary for Kiln (EL - No Outliers):
+[2025-11-14 11:18:49]   total_months: 32
+[2025-11-14 11:18:49]   avg_rank: 3.0
+[2025-11-14 11:18:49]   avg_percentile: 70.078125
+[2025-11-14 11:18:49]   months_above_mean: 22
+[2025-11-14 11:18:49]   months_above_median: 24
+[2025-11-14 11:18:49]   avg_apr_diff_vs_mean_bps: 5.055176164298203
+[2025-11-14 11:18:49]   avg_apr_diff_vs_median_bps: 7.395904491942929
+[2025-11-14 11:18:49]   total_extra_rewards_vs_mean: 363.2396308911182
+[2025-11-14 11:18:49]   total_extra_rewards_vs_median: 531.1323249194515
+[2025-11-14 11:18:49]   start_date: 2023-01-01
+[2025-11-14 11:18:49]   end_date: 2025-08-31
+[2025-11-14 11:18:49]   outliers_removed: True
+[2025-11-14 11:18:49]   outliers_count: 10
+[2025-11-14 11:18:49] 
+================================================================================
+[2025-11-14 11:18:49] ANALYZING TOTAL REWARDS
+[2025-11-14 11:18:49] Output directory: /Users/mehdielkacemy/lido-performance-analysis/output/no_filtering
+[2025-11-14 11:18:49] ================================================================================
+[2025-11-14 11:18:49] Starting TOTAL analysis for Kiln
+[2025-11-14 11:18:49] Auto-including reference operator 'Kiln' (ID: 8) in analysis
+[2025-11-14 11:18:49] Analyzing 8 operators after filtering
+[2025-11-14 11:18:49] Analysis complete: 32 months analyzed
+[2025-11-14 11:18:49] Analysis saved to: /Users/mehdielkacemy/lido-performance-analysis/output/no_filtering/kiln_total_analysis.csv
+[2025-11-14 11:18:49] Heatmap rankings exported to: /Users/mehdielkacemy/lido-performance-analysis/output/no_filtering/operator_rankings_total.csv
+[2025-11-14 11:18:50] Heatmap saved to: /Users/mehdielkacemy/lido-performance-analysis/output/no_filtering/operator_rankings_total_heatmap.png
+[2025-11-14 11:18:50] Plot saved to: /Users/mehdielkacemy/lido-performance-analysis/output/no_filtering/kiln_total_performance.png
+[2025-11-14 11:18:50] 
+Summary for Kiln (TOTAL):
+[2025-11-14 11:18:50]   total_months: 32
+[2025-11-14 11:18:50]   avg_rank: 3.09375
+[2025-11-14 11:18:50]   avg_percentile: 68.671875
+[2025-11-14 11:18:50]   months_above_mean: 20
+[2025-11-14 11:18:50]   months_above_median: 22
+[2025-11-14 11:18:50]   avg_apr_diff_vs_mean_bps: -3.3583390829471007
+[2025-11-14 11:18:50]   avg_apr_diff_vs_median_bps: 3.5051792048514523
+[2025-11-14 11:18:50]   total_extra_rewards_vs_mean: -192.79197031144457
+[2025-11-14 11:18:50]   total_extra_rewards_vs_median: 272.55297917154144
+[2025-11-14 11:18:50]   start_date: 2023-01-01
+[2025-11-14 11:18:50]   end_date: 2025-08-31
+[2025-11-14 11:18:50]   outliers_removed: False
+[2025-11-14 11:18:50]   outliers_count: 0
+[2025-11-14 11:18:50] 
+================================================================================
+[2025-11-14 11:18:50] ANALYZING TOTAL REWARDS (NO OUTLIERS - ABSOLUTE METHOD)
+[2025-11-14 11:18:50] Output directory: /Users/mehdielkacemy/lido-performance-analysis/output/absolute
+[2025-11-14 11:18:50] ================================================================================
+[2025-11-14 11:18:50] Starting TOTAL analysis for Kiln (no outliers)
+[2025-11-14 11:18:50] Auto-including reference operator 'Kiln' (ID: 8) in analysis
+[2025-11-14 11:18:50] Analyzing 8 operators after filtering
+[2025-11-14 11:18:50] Analysis complete: 32 months analyzed
+[2025-11-14 11:18:50] Removed 10 outlier data points using 'absolute' method
+[2025-11-14 11:18:50] Analysis saved to: /Users/mehdielkacemy/lido-performance-analysis/output/absolute/kiln_total_analysis_no_outliers.csv
+[2025-11-14 11:18:50] Heatmap rankings exported to: /Users/mehdielkacemy/lido-performance-analysis/output/absolute/operator_rankings_total_no_outliers.csv
+[2025-11-14 11:18:50] Removed outliers exported to: /Users/mehdielkacemy/lido-performance-analysis/output/absolute/removed_outliers_total.csv (10 data points)
+[2025-11-14 11:18:51] Heatmap saved to: /Users/mehdielkacemy/lido-performance-analysis/output/absolute/operator_rankings_total_heatmap_no_outliers.png
+[2025-11-14 11:18:52] Plot saved to: /Users/mehdielkacemy/lido-performance-analysis/output/absolute/kiln_total_performance_no_outliers.png
+[2025-11-14 11:18:52] 
+Summary for Kiln (TOTAL - No Outliers):
+[2025-11-14 11:18:52]   total_months: 32
+[2025-11-14 11:18:52]   avg_rank: 2.9375
+[2025-11-14 11:18:52]   avg_percentile: 71.09375
+[2025-11-14 11:18:52]   months_above_mean: 21
+[2025-11-14 11:18:52]   months_above_median: 24
+[2025-11-14 11:18:52]   avg_apr_diff_vs_mean_bps: 5.063240081079876
+[2025-11-14 11:18:52]   avg_apr_diff_vs_median_bps: 7.041654606840165
+[2025-11-14 11:18:52]   total_extra_rewards_vs_mean: 362.95624394274427
+[2025-11-14 11:18:52]   total_extra_rewards_vs_median: 504.60377540908814
+[2025-11-14 11:18:52]   start_date: 2023-01-01
+[2025-11-14 11:18:52]   end_date: 2025-08-31
+[2025-11-14 11:18:52]   outliers_removed: True
+[2025-11-14 11:18:52]   outliers_count: 10
+[2025-11-14 11:18:52] 
+================================================================================
+[2025-11-14 11:18:52] DETAILED ANALYSIS COMPLETE!
+[2025-11-14 11:18:52] ================================================================================
+[2025-11-14 11:18:52] 
+All results saved to: /Users/mehdielkacemy/lido-performance-analysis/output
