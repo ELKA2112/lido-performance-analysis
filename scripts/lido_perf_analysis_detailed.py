@@ -1366,27 +1366,41 @@ def main():
         log_message("Operator filtering DISABLED: Analyzing all operators")
 
     # Step 1: Fetch and process Lido data
+    log_message("\n" + "="*80)
+    log_message("STEP 1: DETERMINING OPERATORS TO PROCESS")
+    log_message("="*80)
+
+    # Always fetch the current operator list first to know what needs to be processed
+    operator_keys = fetch_lido_operators()
+    current_operator_ids = set(operator_keys.keys())
+
     checkpoint = load_checkpoint()
     existing_results = load_results()
 
-    data_fetching_needed = (
-        len(checkpoint.get('completed_operators', [])) < checkpoint.get('total_operators', 1) or
-        not os.path.exists(RESULTS_FILE)
-    )
+    # Determine which operators are missing from checkpoint
+    completed_operator_ids = set(checkpoint.get('completed_operators', []))
+    missing_operator_ids = current_operator_ids - completed_operator_ids
+
+    # Check if data fetching is needed
+    data_fetching_needed = len(missing_operator_ids) > 0 or not os.path.exists(RESULTS_FILE)
 
     if data_fetching_needed:
-        log_message("\n" + "="*80)
-        log_message("STEP 1: FETCHING LIDO DATA")
-        log_message("="*80)
+        if len(missing_operator_ids) > 0:
+            log_message(f"Found {len(missing_operator_ids)} operators to process (out of {len(current_operator_ids)} total)")
+            log_message(f"Already completed: {len(completed_operator_ids)} operators")
 
-        operator_keys = fetch_lido_operators()
+        # Update checkpoint with current total
         checkpoint['total_operators'] = len(operator_keys)
         save_checkpoint(checkpoint)
+
+        log_message("\n" + "="*80)
+        log_message("STEP 2: FETCHING VALIDATOR KEYS")
+        log_message("="*80)
 
         operator_keys = fetch_operator_keys(operator_keys, checkpoint)
 
         log_message("\n" + "="*80)
-        log_message("STEP 2: PROCESSING OPERATOR REWARDS (CL/EL SPLIT)")
+        log_message("STEP 3: PROCESSING OPERATOR REWARDS (CL/EL SPLIT)")
         log_message("="*80)
 
         daily_rewards_operator = process_all_operators(
@@ -1398,7 +1412,7 @@ def main():
 
         log_message(f"Data processing complete! Total operators: {len(checkpoint['completed_operators'])}/{checkpoint['total_operators']}")
     else:
-        log_message("Data already fetched and processed. Skipping to analysis.")
+        log_message(f"All {len(current_operator_ids)} operators already processed. Skipping to analysis.")
 
     # Verify results file exists
     if not os.path.exists(RESULTS_FILE):
